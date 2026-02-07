@@ -7,7 +7,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "SecurAI - Intelligent Security Testing",
+  title: "PentestIQ - Intelligent Security Testing",
   description: "AI-powered security scanning and remediation platform.",
 };
 
@@ -18,13 +18,13 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} antialiased`}>
         <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

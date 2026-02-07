@@ -12,7 +12,7 @@ export default function Navbar() {
         {/* Logo Section */}
         <Link href="/" className="flex items-center gap-2 font-bold text-xl mr-8">
           <Shield className="h-6 w-6 text-primary" />
-          <span className="hidden sm:inline-block">SecurAI</span>
+          <span className="hidden sm:inline-block">PentestIQ</span>
         </Link>
 
         {/* Desktop Navigation - Centered */}
@@ -31,8 +31,8 @@ export default function Navbar() {
           <Link href="/login" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             Log in
           </Link>
-          <Link 
-            href="/signup" 
+          <Link
+            href="/signup"
             className="inline-flex h-9 items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
           >
             Get Started
@@ -40,7 +40,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu Toggle */}
-        <button 
+        <button
           className="md:hidden p-2 text-muted-foreground hover:text-foreground"
           onClick={() => setIsOpen(!isOpen)}
         >
@@ -56,10 +56,10 @@ export default function Navbar() {
 
           <div className="pt-4 border-t border-border flex flex-col gap-3">
             <Link href="/login" className="flex items-center justify-center h-10 rounded-md border border-input bg-background px-4 hover:bg-accent hover:text-accent-foreground text-sm font-medium">
-                Log in
+              Log in
             </Link>
             <Link href="/signup" className="flex items-center justify-center h-10 rounded-md bg-primary px-4 text-primary-foreground hover:bg-primary/90 text-sm font-medium">
-                Get Started
+              Get Started
             </Link>
           </div>
         </div>

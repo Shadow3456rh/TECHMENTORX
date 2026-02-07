@@ -1,5 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
+import { db } from "../../../lib/firebase";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import Script from 'next/script';
 
 import { jsPDF } from "jspdf";
@@ -237,6 +239,25 @@ export default function SecOpsTerminal() {
             setIsScanning(false);
             setStatus("COMPLETE");
             setCurrentTask("Scan finished.");
+
+            // Save Scan to History
+            if (globalLogData.current) {
+                try {
+                    await addDoc(collection(db, "history"), {
+                        target: targetIp,
+                        network: targetNetwork,
+                        date: serverTimestamp(),
+                        duration: estimatedTime,
+                        type: "Network Assessment",
+                        status: "Completed",
+                        findings: metrics,
+                        full_log: globalLogData.current
+                    });
+                    console.log("Scan saved to history");
+                } catch (e) {
+                    console.error("Error saving history:", e);
+                }
+            }
         }
     };
 
@@ -263,6 +284,7 @@ export default function SecOpsTerminal() {
         setSummary("");
 
         try {
+            let summaryText = "";
             if (aiMode === 'openai') {
                 const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
                 if (!apiKey) throw new Error("OpenAI API Key not found in env");
@@ -294,7 +316,7 @@ export default function SecOpsTerminal() {
                 }
 
                 const data = await response.json();
-                setSummary(data.choices[0].message.content);
+                summaryText = data.choices[0].message.content;
 
             } else {
                 // Local Backend (Ollama)
@@ -310,7 +332,25 @@ export default function SecOpsTerminal() {
                 }
 
                 const data = await response.json();
-                setSummary(data.summary);
+                summaryText = data.summary;
+            }
+
+            setSummary(summaryText);
+
+            // Save Report to Firestore
+            try {
+                await addDoc(collection(db, "reports"), {
+                    name: `AI Security Summary - ${targetIp}`,
+                    scan: targetIp,
+                    date: serverTimestamp(), // Will be formatted on fetch
+                    type: "AI Analysis", // To distinguish types
+                    content: summaryText,
+                    mode: aiMode,
+                    score: "N/A" // Placeholder
+                });
+                console.log("Report saved to db");
+            } catch (e) {
+                console.error("Error saving report:", e);
             }
 
         } catch (error) {
