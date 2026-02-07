@@ -34,7 +34,7 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center animate-in fade-in slide-in-from-bottom-16 duration-1000">
               <Link
-                href="/signup"
+                href="/login"
                 className="inline-flex h-12 items-center justify-center rounded-md bg-primary px-8 text-base font-medium text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:scale-105 active:scale-95"
               >
                 Start Scanning
@@ -199,7 +199,7 @@ export default function Home() {
               Join thousands of developers and security professionals using PentestIQ today.
             </p>
             <Link
-              href="/signup"
+              href="/login"
               className="inline-flex h-12 items-center justify-center rounded-md bg-primary px-8 text-base font-medium text-primary-foreground shadow hover:bg-primary/90 transition-transform active:scale-95"
             >
               Get Started for Free

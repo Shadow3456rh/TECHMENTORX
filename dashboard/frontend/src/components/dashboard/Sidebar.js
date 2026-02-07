@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "@/context/AuthContext";
 import {
   LayoutDashboard,
   ScanLine,
@@ -12,7 +13,6 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
   { name: "New Scan", href: "/dashboard/scan", icon: ScanLine },
   { name: "History", href: "/dashboard/history", icon: History },
   { name: "Security Policy", href: "/dashboard/security", icon: ShieldCheck },
@@ -21,9 +21,10 @@ const navItems = [
 export default function Sidebar() {
   const pathname = usePathname();
   const router = useRouter();
+  const { user, logOut } = useAuth();
 
-  const handleSignOut = () => {
-    // In a real app, clear auth tokens here
+  const handleSignOut = async () => {
+    await logOut();
     router.push("/login");
   };
 
@@ -83,12 +84,18 @@ export default function Sidebar() {
         {/* User Profile (Refined Visibility) */}
         <div className="p-4 border-t border-white/10 bg-black/40">
           <div className="flex items-center gap-3 p-3 rounded-xl bg-white/5 border border-white/5 hover:border-white/10 transition-colors group">
-            <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-xs font-bold text-white shadow-lg">
-              AS
+            <div className="h-10 w-10 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-xs font-bold text-white shadow-lg overflow-hidden">
+              {user?.photoURL ? (
+                <img src={user.photoURL} alt="User" className="h-full w-full object-cover" />
+              ) : (
+                <span>{user?.displayName ? user.displayName.charAt(0).toUpperCase() : "U"}</span>
+              )}
             </div>
             <div className="flex-1 overflow-hidden">
-              <p className="text-sm font-bold text-white truncate shadow-black drop-shadow-sm">Aryan Sharma</p>
-              <p className="text-xs text-primary/80 font-medium truncate">Administrator</p>
+              <p className="text-sm font-bold text-white truncate shadow-black drop-shadow-sm">
+                {user?.displayName || "User"}
+              </p>
+              <p className="text-xs text-primary/80 font-medium truncate">{user?.email || "No Email"}</p>
             </div>
             <button onClick={handleSignOut} title="Sign Out" className="p-2 hover:bg-white/10 rounded-lg transition-colors">
               <LogOut className="h-4 w-4 text-zinc-400 hover:text-rose-500 transition-colors" />
