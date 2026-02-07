@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import Script from 'next/script';
-import { GoogleGenerativeAI } from "@google/generative-ai";
+
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import { motion, AnimatePresence } from "framer-motion";
@@ -80,6 +80,7 @@ export default function SecOpsTerminal() {
     const [showReport, setShowReport] = useState(false);
     const [summary, setSummary] = useState("");
     const [isSummarizing, setIsSummarizing] = useState(false);
+    const [aiMode, setAiMode] = useState('local'); // 'local' | 'openai'
 
     // We need a ref for the report container to capture it for PDF
     const reportRef = useRef(null);
@@ -254,40 +255,67 @@ export default function SecOpsTerminal() {
     };
 
     // AI Summarization
+    // AI Summarization
+    // AI Summarization
     const generateSummary = async () => {
         if (!globalLogData.current) return;
         setIsSummarizing(true);
+        setSummary("");
+
         try {
-            const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY || "AIzaSyBz5HIGXv6wQAjC_NTcFEHQ47EDoUnUIeM");
-            // Using gemini-1.5-flash for speed and cost effectiveness, or fallback to pro
-            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+            if (aiMode === 'openai') {
+                const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
+                if (!apiKey) throw new Error("OpenAI API Key not found in env");
 
-            const prompt = `
-                You are a cybersecurity expert analyzing a Nmap/scan report. 
-                Please provide a concise, professional executive summary of the following scan log data.
-                Highlight critical vulnerabilities, open ports, and potential risks.
-                Suggest top 3 specific remediation steps.
-                Format the output as Markdown.
-                
-                LOG DATA:
-                ${globalLogData.current.substring(0, 30000)} // Limit context window to avoid token limits
-            `;
+                const response = await fetch("https://api.openai.com/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: "gpt-4-turbo",
+                        messages: [
+                            {
+                                role: "system",
+                                content: "You are a senior cybersecurity analyst. You have been provided with **Network Security Scan Data** from a local network assessment. Provide a comprehensive executive summary, critical findings, dangerous vulnerabilities, and 3 specific remediation steps. Format strictly as Markdown."
+                            },
+                            {
+                                role: "user",
+                                content: `RAW LOG DATA:\n${globalLogData.current.substring(0, 30000)}`
+                            }
+                        ]
+                    })
+                });
 
-            const result = await model.generateContent(prompt);
-            const response = await result.response;
-            setSummary(response.text());
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(err.error?.message || "OpenAI API request failed");
+                }
+
+                const data = await response.json();
+                setSummary(data.choices[0].message.content);
+
+            } else {
+                // Local Backend (Ollama)
+                const response = await fetch('http://localhost:5001/summarize', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ report: globalLogData.current })
+                });
+
+                if (!response.ok) {
+                    const errData = await response.json();
+                    throw new Error(errData.error || "Backend summarization failed");
+                }
+
+                const data = await response.json();
+                setSummary(data.summary);
+            }
+
         } catch (error) {
             console.error("AI Summary failed:", error);
-            // Fallback to pro if flash fails or model name issue
-            try {
-                const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY || "AIzaSyBz5HIGXv6wQAjC_NTcFEHQ47EDoUnUIeM");
-                const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-                const result = await model.generateContent(prompt);
-                const response = await result.response;
-                setSummary(response.text());
-            } catch (retryError) {
-                setSummary("Failed to generate summary. Please check API key or connectivity.");
-            }
+            setSummary(`Analysis Failed: ${error.message}.`);
         } finally {
             setIsSummarizing(false);
         }
@@ -931,11 +959,29 @@ export default function SecOpsTerminal() {
                                         </div>
                                     </div>
                                     <div className="report-actions" data-html2canvas-ignore>
-                                        <button className="action-btn" onClick={() => setShowReport(false)}>← Back to Terminal</button>
-                                        <button className="action-btn" onClick={generateSummary} disabled={isSummarizing || !globalLogData.current}>
-                                            {isSummarizing ? "Analyzing..." : " Summarize with AI"}
-                                        </button>
-                                        <button className="action-btn primary" onClick={exportReport}>Export PDF Report</button>
+                                        <button className="action-btn" onClick={() => setShowReport(false)}>← Back</button>
+
+                                        <div style={{ display: 'flex', gap: '0' }}>
+                                            <select
+                                                value={aiMode}
+                                                onChange={(e) => setAiMode(e.target.value)}
+                                                className="action-btn"
+                                                style={{ borderRight: 'none', appearance: 'none', paddingRight: '10px' }}
+                                            >
+                                                <option value="local">Local LLM</option>
+                                                <option value="openai">AI+ (OpenAI)</option>
+                                            </select>
+                                            <button
+                                                className="action-btn"
+                                                onClick={generateSummary}
+                                                disabled={isSummarizing || !globalLogData.current}
+                                                style={{ borderLeft: '1px solid #333' }}
+                                            >
+                                                {isSummarizing ? "Analyzing..." : "Summarize"}
+                                            </button>
+                                        </div>
+
+                                        <button className="action-btn primary" onClick={exportReport}>Export PDF</button>
                                     </div>
                                 </div>
 
@@ -951,7 +997,9 @@ export default function SecOpsTerminal() {
                                                         <span className="ai-loading">Generating security insights from scan data...</span> :
                                                         <div>
                                                             <p>No summary generated yet.</p>
-                                                            <p style={{ fontSize: '0.8rem' }}>Click "Summarize with AI" to analyze the scan logs using Gemini Pro.</p>
+                                                            <p style={{ fontSize: '0.8rem' }}>
+                                                                Click "Summarize" to analyze data using <b>{aiMode === 'local' ? 'Local LLM (Ollama)' : 'AI+ (GPT-4)'}</b>.
+                                                            </p>
                                                         </div>
                                                     }
                                                 </div>
