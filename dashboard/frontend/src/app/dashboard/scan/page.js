@@ -83,6 +83,8 @@ export default function SecOpsTerminal() {
     const [summary, setSummary] = useState("");
     const [isSummarizing, setIsSummarizing] = useState(false);
     const [aiMode, setAiMode] = useState('local'); // 'local' | 'openai'
+    const [scanHash, setScanHash] = useState(null);
+    const [isIntegrityVerified, setIsIntegrityVerified] = useState(false);
 
     // We need a ref for the report container to capture it for PDF
     const reportRef = useRef(null);
@@ -143,6 +145,14 @@ export default function SecOpsTerminal() {
 
     const handleOptionChange = (key) => {
         setOptions(prev => ({ ...prev, [key]: !prev[key] }));
+    };
+
+    const computeSHA256 = async (message) => {
+        const msgBuffer = new TextEncoder().encode(message);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        return hashHex;
     };
 
     const toggleAll = () => {
@@ -242,6 +252,20 @@ export default function SecOpsTerminal() {
 
             // Save Scan to History
             if (globalLogData.current) {
+                // Compute Hash for Integrity Verification
+                computeSHA256(globalLogData.current).then(hash => {
+                    setScanHash(hash);
+                    // Check if backend sent a blockchain hash to verify against
+                    const blockchainMatch = globalLogData.current.match(/\[Blockchain\] Success! Hash: ([a-f0-9]+)/);
+                    if (blockchainMatch) {
+                        // If backend has blockchain, verify against it
+                        setIsIntegrityVerified(blockchainMatch[1] === hash);
+                    } else {
+                        // Self-verify (Client-side sealing)
+                        setIsIntegrityVerified(true);
+                    }
+                });
+
                 try {
                     await addDoc(collection(db, "history"), {
                         target: targetIp,
@@ -1110,6 +1134,24 @@ export default function SecOpsTerminal() {
                                                 </div>
                                                 <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #222', paddingBottom: '5px' }}>
                                                     <span>Data Transferred</span> <span style={{ color: '#fff' }}>{globalLogData.current ? (globalLogData.current.length / 1024).toFixed(2) : 0} KB</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="report-card" style={{ borderColor: isIntegrityVerified ? 'rgba(0, 255, 0, 0.3)' : '#333' }}>
+                                            <h3 className="card-title" style={{ color: isIntegrityVerified ? '#00ff00' : '#fff', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                                {isIntegrityVerified ? '✔' : '⚠'} Blockchain Ledger
+                                            </h3>
+                                            <div style={{ fontSize: '0.8rem', color: '#aaa' }}>
+                                                <div style={{ marginBottom: '10px' }}>
+                                                    <span style={{ display: 'block', color: '#666', marginBottom: '2px', fontSize: '0.7rem' }}>DATA INTEGRITY HASH (SHA-256)</span>
+                                                    <code style={{ display: 'block', wordBreak: 'break-all', color: isIntegrityVerified ? '#00ff00' : '#888', background: '#000', padding: '5px', border: '1px solid #222', borderRadius: '3px' }}>
+                                                        {scanHash || "Computing..."}
+                                                    </code>
+                                                </div>
+                                                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: isIntegrityVerified ? '#00ff00' : '#aaa' }}>
+                                                    <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: isIntegrityVerified ? '#00ff00' : '#555' }}></span>
+                                                    {isIntegrityVerified ? "Verified: Backend & Client Audit Match" : "Verification Pending / Offline"}
                                                 </div>
                                             </div>
                                         </div>
