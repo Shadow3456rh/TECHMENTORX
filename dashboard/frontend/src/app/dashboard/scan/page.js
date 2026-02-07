@@ -404,12 +404,57 @@ export default function SecOpsTerminal() {
             if (buttons) buttons.style.display = 'flex';
 
             const imgData = canvas.toDataURL('image/png');
-
             const pdf = new jsPDF('p', 'mm', 'a4');
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
-            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = pdf.internal.pageSize.getHeight();
+            const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+
+            let heightLeft = imgHeight;
+            let position = 0;
+
+            // Add first page (Dashboard Visuals)
+            pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+            heightLeft -= pdfHeight;
+
+            // Add subsequent pages for long dashboard content
+            while (heightLeft > 0) {
+                position -= pdfHeight; // Shift image up
+                pdf.addPage();
+                pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+                heightLeft -= pdfHeight;
+            }
+
+            // Appending Raw Logs
+            if (globalLogData.current) {
+                pdf.addPage();
+                pdf.setFont("courier", "normal");
+                pdf.setFontSize(10);
+                pdf.setTextColor(0, 0, 0); // Black text
+
+                const title = "FULL SCAN LOGS:";
+                pdf.text(title, 10, 15);
+
+                // Helper to strip ANSI codes
+                const stripAnsi = (str) => str.replace(/[\u001b\u009b][[()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, '');
+
+                const logs = stripAnsi(globalLogData.current);
+                // Split text to fit page width
+                const lines = pdf.splitTextToSize(logs, pdfWidth - 20); // 10mm margin left/right
+
+                let cursorY = 25;
+                const lineHeight = 5;
+
+                for (let i = 0; i < lines.length; i++) {
+                    if (cursorY > pdfHeight - 15) { // Bottom margin
+                        pdf.addPage();
+                        cursorY = 15; // Top margin
+                    }
+                    pdf.text(lines[i], 10, cursorY);
+                    cursorY += lineHeight;
+                }
+            }
+
             pdf.save(`sec-ops-report-${new Date().toISOString().slice(0, 10)}.pdf`);
         } catch (err) {
             console.error("Export failed:", err);
