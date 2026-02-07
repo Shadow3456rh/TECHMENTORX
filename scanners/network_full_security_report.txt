@@ -1,0 +1,2517 @@
+
+==============================
+ FULL NETWORK SECURITY REPORT 
+==============================
+Date: 2026-02-07 13:49:10
+[INFO] Target: 127.0.0.1
+[INFO] Network: 192.168.1.0/24
+            
+[2026-02-07 13:49:10] Executing: nmap -sn -PR 192.168.1.0/24
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-02-07 13:49 +0530
+Nmap done: 256 IP addresses (0 hosts up) scanned in 206.91 seconds
+
+[2026-02-07 13:52:37] Executing: nmap -T4 127.0.0.1
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-02-07 13:52 +0530
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000020s latency).
+Not shown: 995 closed tcp ports (conn-refused)
+PORT     STATE SERVICE
+3306/tcp open  mysql
+5000/tcp open  upnp
+5001/tcp open  commplex-link
+5002/tcp open  rfe
+7000/tcp open  afs3-fileserver
+
+Nmap done: 1 IP address (1 host up) scanned in 0.03 seconds
+
+[2026-02-07 13:52:37] Executing: nmap -p- -T4 127.0.0.1
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-02-07 13:52 +0530
+Strange read error from 127.0.0.1 (22 - 'Invalid argument')
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000024s latency).
+Not shown: 65521 closed tcp ports (conn-refused)
+PORT      STATE    SERVICE
+3306/tcp  open     mysql
+5000/tcp  open     upnp
+5001/tcp  open     commplex-link
+5002/tcp  open     rfe
+7000/tcp  open     afs3-fileserver
+33060/tcp open     mysqlx
+49290/tcp filtered unknown
+57366/tcp open     unknown
+57372/tcp open     unknown
+57373/tcp open     unknown
+57374/tcp open     unknown
+57387/tcp open     unknown
+57911/tcp open     unknown
+61202/tcp open     unknown
+
+Nmap done: 1 IP address (1 host up) scanned in 0.93 seconds
+
+[2026-02-07 13:52:38] Executing: sudo nmap -sU --top-ports 100 127.0.0.1
+
+=== SESSION STARTED: 2026-02-07 14:03:41 ===
+
+[2026-02-07 14:03:41] Executing: nmap -sn -PR 192.168.1.0/24
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-02-07 14:03 +0530
+Nmap scan report for 192.168.1.0
+Host is up (0.091s latency).
+Nmap scan report for 192.168.1.1
+Host is up (0.091s latency).
+Nmap scan report for 192.168.1.2
+Host is up (0.091s latency).
+Nmap scan report for 192.168.1.3
+Host is up (0.033s latency).
+Nmap scan report for 192.168.1.4
+Host is up (0.033s latency).
+Nmap scan report for 192.168.1.5
+Host is up (0.028s latency).
+Nmap scan report for 192.168.1.6
+Host is up (0.028s latency).
+Nmap scan report for 192.168.1.7
+Host is up (0.068s latency).
+Nmap scan report for 192.168.1.8
+Host is up (0.068s latency).
+Nmap scan report for 192.168.1.9
+Host is up (0.068s latency).
+Nmap scan report for 192.168.1.10
+Host is up (0.068s latency).
+Nmap scan report for 192.168.1.11
+Host is up (0.068s latency).
+Nmap scan report for 192.168.1.12
+Host is up (0.068s latency).
+Nmap scan report for 192.168.1.13
+Host is up (0.029s latency).
+Nmap scan report for 192.168.1.14
+Host is up (0.068s latency).
+Nmap scan report for 192.168.1.15
+Host is up (0.068s latency).
+Nmap scan report for 192.168.1.16
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.17
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.18
+Host is up (0.067s latency).
+Nmap scan report for 192.168.1.19
+Host is up (0.067s latency).
+Nmap scan report for 192.168.1.20
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.21
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.22
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.23
+Host is up (0.033s latency).
+Nmap scan report for 192.168.1.24
+Host is up (0.033s latency).
+Nmap scan report for 192.168.1.25
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.26
+Host is up (0.027s latency).
+Nmap scan report for 192.168.1.27
+Host is up (0.033s latency).
+Nmap scan report for 192.168.1.28
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.29
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.30
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.31
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.32
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.33
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.34
+Host is up (0.038s latency).
+Nmap scan report for 192.168.1.35
+Host is up (0.050s latency).
+Nmap scan report for 192.168.1.36
+Host is up (0.050s latency).
+Nmap scan report for 192.168.1.37
+Host is up (0.027s latency).
+Nmap scan report for 192.168.1.38
+Host is up (0.025s latency).
+Nmap scan report for 192.168.1.39
+Host is up (0.050s latency).
+Nmap scan report for 192.168.1.40
+Host is up (0.050s latency).
+Nmap scan report for 192.168.1.41
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.42
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.43
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.44
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.45
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.46
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.47
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.48
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.49
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.50
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.51
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.52
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.53
+Host is up (0.018s latency).
+Nmap scan report for 192.168.1.54
+Host is up (0.083s latency).
+Nmap scan report for 192.168.1.55
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.56
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.57
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.58
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.59
+Host is up (0.054s latency).
+Nmap scan report for 192.168.1.60
+Host is up (0.054s latency).
+Nmap scan report for 192.168.1.61
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.62
+Host is up (0.053s latency).
+Nmap scan report for 192.168.1.63
+Host is up (0.043s latency).
+Nmap scan report for 192.168.1.64
+Host is up (0.043s latency).
+Nmap scan report for 192.168.1.65
+Host is up (0.055s latency).
+Nmap scan report for 192.168.1.66
+Host is up (0.054s latency).
+Nmap scan report for 192.168.1.67
+Host is up (0.026s latency).
+Nmap scan report for 192.168.1.68
+Host is up (0.026s latency).
+Nmap scan report for 192.168.1.69
+Host is up (0.042s latency).
+Nmap scan report for 192.168.1.70
+Host is up (0.042s latency).
+Nmap scan report for 192.168.1.71
+Host is up (0.054s latency).
+Nmap scan report for 192.168.1.72
+Host is up (0.054s latency).
+Nmap scan report for 192.168.1.73
+Host is up (0.057s latency).
+Nmap scan report for 192.168.1.74
+Host is up (0.057s latency).
+Nmap scan report for 192.168.1.75
+Host is up (0.057s latency).
+Nmap scan report for 192.168.1.76
+Host is up (0.056s latency).
+Nmap scan report for 192.168.1.77
+Host is up (0.042s latency).
+Nmap scan report for 192.168.1.78
+Host is up (0.042s latency).
+Nmap scan report for 192.168.1.79
+Host is up (0.063s latency).
+Nmap scan report for 192.168.1.80
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.81
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.82
+Host is up (0.065s latency).
+Nmap scan report for 192.168.1.83
+Host is up (0.019s latency).
+Nmap scan report for 192.168.1.84
+Host is up (0.065s latency).
+Nmap scan report for 192.168.1.85
+Host is up (0.035s latency).
+Nmap scan report for 192.168.1.86
+Host is up (0.048s latency).
+Nmap scan report for 192.168.1.87
+Host is up (0.053s latency).
+Nmap scan report for 192.168.1.88
+Host is up (0.058s latency).
+Nmap scan report for 192.168.1.89
+Host is up (0.032s latency).
+Nmap scan report for 192.168.1.90
+Host is up (0.032s latency).
+Nmap scan report for 192.168.1.91
+Host is up (0.032s latency).
+Nmap scan report for 192.168.1.92
+Host is up (0.032s latency).
+Nmap scan report for 192.168.1.93
+Host is up (0.026s latency).
+Nmap scan report for 192.168.1.94
+Host is up (0.031s latency).
+Nmap scan report for 192.168.1.95
+Host is up (0.045s latency).
+Nmap scan report for 192.168.1.96
+Host is up (0.045s latency).
+Nmap scan report for 192.168.1.97
+Host is up (0.046s latency).
+Nmap scan report for 192.168.1.98
+Host is up (0.046s latency).
+Nmap scan report for 192.168.1.99
+Host is up (0.047s latency).
+Nmap scan report for 192.168.1.100
+Host is up (0.047s latency).
+Nmap scan report for 192.168.1.101
+Host is up (0.036s latency).
+Nmap scan report for 192.168.1.102
+Host is up (0.036s latency).
+Nmap scan report for 192.168.1.103
+Host is up (0.047s latency).
+Nmap scan report for 192.168.1.104
+Host is up (0.050s latency).
+Nmap scan report for 192.168.1.105
+Host is up (0.036s latency).
+Nmap scan report for 192.168.1.106
+Host is up (0.036s latency).
+Nmap scan report for 192.168.1.107
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.108
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.109
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.110
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.111
+Host is up (0.037s latency).
+Nmap scan report for 192.168.1.112
+Host is up (0.037s latency).
+Nmap scan report for 192.168.1.113
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.114
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.115
+Host is up (0.046s latency).
+Nmap scan report for 192.168.1.116
+Host is up (0.046s latency).
+Nmap scan report for 192.168.1.117
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.118
+Host is up (0.040s latency).
+Nmap scan report for 192.168.1.119
+Host is up (0.046s latency).
+Nmap scan report for 192.168.1.120
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.121
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.122
+Host is up (0.043s latency).
+Nmap scan report for 192.168.1.123
+Host is up (0.078s latency).
+Nmap scan report for 192.168.1.124
+Host is up (0.078s latency).
+Nmap scan report for 192.168.1.125
+Host is up (0.041s latency).
+Nmap scan report for 192.168.1.126
+Host is up (0.041s latency).
+Nmap scan report for 192.168.1.127
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.128
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.129
+Host is up (0.043s latency).
+Nmap scan report for 192.168.1.130
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.131
+Host is up (0.043s latency).
+Nmap scan report for 192.168.1.132
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.133
+Host is up (0.032s latency).
+Nmap scan report for 192.168.1.134
+Host is up (0.033s latency).
+Nmap scan report for 192.168.1.135
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.136
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.137
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.138
+Host is up (0.061s latency).
+Nmap scan report for 192.168.1.139
+Host is up (0.061s latency).
+Nmap scan report for 192.168.1.140
+Host is up (0.061s latency).
+Nmap scan report for 192.168.1.141
+Host is up (0.069s latency).
+Nmap scan report for 192.168.1.142
+Host is up (0.069s latency).
+Nmap scan report for 192.168.1.143
+Host is up (0.048s latency).
+Nmap scan report for 192.168.1.144
+Host is up (0.048s latency).
+Nmap scan report for 192.168.1.145
+Host is up (0.048s latency).
+Nmap scan report for 192.168.1.146
+Host is up (0.048s latency).
+Nmap scan report for 192.168.1.147
+Host is up (0.071s latency).
+Nmap scan report for 192.168.1.148
+Host is up (0.071s latency).
+Nmap scan report for 192.168.1.149
+Host is up (0.069s latency).
+Nmap scan report for 192.168.1.150
+Host is up (0.069s latency).
+Nmap scan report for 192.168.1.151
+Host is up (0.023s latency).
+Nmap scan report for 192.168.1.152
+Host is up (0.030s latency).
+Nmap scan report for 192.168.1.153
+Host is up (0.071s latency).
+Nmap scan report for 192.168.1.154
+Host is up (0.070s latency).
+Nmap scan report for 192.168.1.155
+Host is up (0.036s latency).
+Nmap scan report for 192.168.1.156
+Host is up (0.036s latency).
+Nmap scan report for 192.168.1.157
+Host is up (0.070s latency).
+Nmap scan report for 192.168.1.158
+Host is up (0.070s latency).
+Nmap scan report for 192.168.1.159
+Host is up (0.083s latency).
+Nmap scan report for 192.168.1.160
+Host is up (0.083s latency).
+Nmap scan report for 192.168.1.161
+Host is up (0.083s latency).
+Nmap scan report for 192.168.1.162
+Host is up (0.083s latency).
+Nmap scan report for 192.168.1.163
+Host is up (0.083s latency).
+Nmap scan report for 192.168.1.164
+Host is up (0.083s latency).
+Nmap scan report for 192.168.1.165
+Host is up (0.083s latency).
+Nmap scan report for 192.168.1.166
+Host is up (0.083s latency).
+Nmap scan report for 192.168.1.167
+Host is up (0.083s latency).
+Nmap scan report for 192.168.1.168
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.169
+Host is up (0.030s latency).
+Nmap scan report for 192.168.1.170
+Host is up (0.032s latency).
+Nmap scan report for 192.168.1.171
+Host is up (0.034s latency).
+Nmap scan report for 192.168.1.172
+Host is up (0.034s latency).
+Nmap scan report for 192.168.1.173
+Host is up (0.041s latency).
+Nmap scan report for 192.168.1.174
+Host is up (0.041s latency).
+Nmap scan report for 192.168.1.175
+Host is up (0.026s latency).
+Nmap scan report for 192.168.1.176
+Host is up (0.026s latency).
+Nmap scan report for 192.168.1.177
+Host is up (0.086s latency).
+Nmap scan report for 192.168.1.178
+Host is up (0.086s latency).
+Nmap scan report for 192.168.1.179
+Host is up (0.096s latency).
+Nmap scan report for 192.168.1.180
+Host is up (0.096s latency).
+Nmap scan report for 192.168.1.181
+Host is up (0.019s latency).
+Nmap scan report for 192.168.1.182
+Host is up (0.033s latency).
+Nmap scan report for 192.168.1.183
+Host is up (0.073s latency).
+Nmap scan report for 192.168.1.184
+Host is up (0.033s latency).
+Nmap scan report for 192.168.1.185
+Host is up (0.073s latency).
+Nmap scan report for 192.168.1.186
+Host is up (0.042s latency).
+Nmap scan report for 192.168.1.187
+Host is up (0.041s latency).
+Nmap scan report for 192.168.1.188
+Host is up (0.041s latency).
+Nmap scan report for 192.168.1.189
+Host is up (0.041s latency).
+Nmap scan report for 192.168.1.190
+Host is up (0.047s latency).
+Nmap scan report for 192.168.1.191
+Host is up (0.066s latency).
+Nmap scan report for 192.168.1.192
+Host is up (0.033s latency).
+Nmap scan report for 192.168.1.193
+Host is up (0.058s latency).
+Nmap scan report for 192.168.1.194
+Host is up (0.086s latency).
+Nmap scan report for 192.168.1.195
+Host is up (0.053s latency).
+Nmap scan report for 192.168.1.196
+Host is up (0.052s latency).
+Nmap scan report for 192.168.1.197
+Host is up (0.070s latency).
+Nmap scan report for 192.168.1.198
+Host is up (0.054s latency).
+Nmap scan report for 192.168.1.199
+Host is up (0.054s latency).
+Nmap scan report for 192.168.1.200
+Host is up (0.055s latency).
+Nmap scan report for 192.168.1.201
+Host is up (0.081s latency).
+Nmap scan report for 192.168.1.202
+Host is up (0.081s latency).
+Nmap scan report for 192.168.1.203
+Host is up (0.054s latency).
+Nmap scan report for 192.168.1.204
+Host is up (0.054s latency).
+Nmap scan report for 192.168.1.205
+Host is up (0.081s latency).
+Nmap scan report for 192.168.1.206
+Host is up (0.081s latency).
+Nmap scan report for 192.168.1.207
+Host is up (0.081s latency).
+Nmap scan report for 192.168.1.208
+Host is up (0.081s latency).
+Nmap scan report for 192.168.1.209
+Host is up (0.055s latency).
+Nmap scan report for 192.168.1.210
+Host is up (0.055s latency).
+Nmap scan report for 192.168.1.211
+Host is up (0.081s latency).
+Nmap scan report for 192.168.1.212
+Host is up (0.081s latency).
+Nmap scan report for 192.168.1.213
+Host is up (0.081s latency).
+Nmap scan report for 192.168.1.214
+Host is up (0.081s latency).
+Nmap scan report for 192.168.1.215
+Host is up (0.056s latency).
+Nmap scan report for 192.168.1.216
+Host is up (0.056s latency).
+Nmap scan report for 192.168.1.217
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.218
+Host is up (0.058s latency).
+Nmap scan report for 192.168.1.219
+Host is up (0.055s latency).
+Nmap scan report for 192.168.1.220
+Host is up (0.058s latency).
+Nmap scan report for 192.168.1.221
+Host is up (0.081s latency).
+Nmap scan report for 192.168.1.222
+Host is up (0.081s latency).
+Nmap scan report for 192.168.1.223
+Host is up (0.081s latency).
+Nmap scan report for 192.168.1.224
+Host is up (0.043s latency).
+Nmap scan report for 192.168.1.225
+Host is up (0.043s latency).
+Nmap scan report for 192.168.1.226
+Host is up (0.036s latency).
+Nmap scan report for 192.168.1.227
+Host is up (0.068s latency).
+Nmap scan report for 192.168.1.228
+Host is up (0.055s latency).
+Nmap scan report for 192.168.1.229
+Host is up (0.030s latency).
+Nmap scan report for 192.168.1.230
+Host is up (0.030s latency).
+Nmap scan report for 192.168.1.231
+Host is up (0.061s latency).
+Nmap scan report for 192.168.1.232
+Host is up (0.061s latency).
+Nmap scan report for 192.168.1.233
+Host is up (0.068s latency).
+Nmap scan report for 192.168.1.234
+Host is up (0.068s latency).
+Nmap scan report for 192.168.1.235
+Host is up (0.035s latency).
+Nmap scan report for 192.168.1.236
+Host is up (0.037s latency).
+Nmap scan report for 192.168.1.237
+Host is up (0.061s latency).
+Nmap scan report for 192.168.1.238
+Host is up (0.067s latency).
+Nmap scan report for 192.168.1.239
+Host is up (0.052s latency).
+Nmap scan report for 192.168.1.240
+Host is up (0.044s latency).
+Nmap scan report for 192.168.1.241
+Host is up (0.044s latency).
+Nmap scan report for 192.168.1.242
+Host is up (0.044s latency).
+Nmap scan report for 192.168.1.243
+Host is up (0.067s latency).
+Nmap scan report for 192.168.1.244
+Host is up (0.067s latency).
+Nmap scan report for 192.168.1.245
+Host is up (0.044s latency).
+Nmap scan report for 192.168.1.246
+Host is up (0.037s latency).
+Nmap scan report for 192.168.1.247
+Host is up (0.032s latency).
+Nmap scan report for 192.168.1.248
+Host is up (0.054s latency).
+Nmap scan report for 192.168.1.249
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.250
+Host is up (0.058s latency).
+Nmap scan report for 192.168.1.251
+Host is up (0.082s latency).
+Nmap scan report for 192.168.1.252
+Host is up (0.091s latency).
+Nmap scan report for 192.168.1.253
+Host is up (0.058s latency).
+Nmap scan report for 192.168.1.254
+Host is up (0.058s latency).
+Nmap scan report for 192.168.1.255
+Host is up (0.091s latency).
+Nmap done: 256 IP addresses (256 hosts up) scanned in 74.70 seconds
+
+[2026-02-07 14:04:56] Executing: sudo nmap -O 127.0.0.1
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-02-07 14:04 +0530
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00015s latency).
+Not shown: 995 closed tcp ports (reset)
+PORT     STATE SERVICE
+3306/tcp open  mysql
+5000/tcp open  upnp
+5001/tcp open  commplex-link
+5002/tcp open  rfe
+7000/tcp open  afs3-fileserver
+Device type: general purpose
+Running: Apple macOS 11.X|12.X
+OS CPE: cpe:/o:apple:mac_os_x:11 cpe:/o:apple:mac_os_x:12
+OS details: Apple macOS 11 (Big Sur) - 12 (Monterey) (Darwin 20.5.0 - 21.6.0)
+Network Distance: 0 hops
+
+OS detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 1.78 seconds
+
+=== SESSION STARTED: 2026-02-07 14:06:29 ===
+
+[2026-02-07 14:06:29] Executing: nmap -sn -PR 192.168.1.0/24
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-02-07 14:06 +0530
+Stats: 0:00:09 elapsed; 0 hosts completed (0 up), 256 undergoing Ping Scan
+Ping Scan Timing: About 4.39% done; ETC: 14:09 (0:03:16 remaining)
+Nmap scan report for 192.168.1.0
+Host is up (0.072s latency).
+Nmap scan report for 192.168.1.1
+Host is up (0.028s latency).
+Nmap scan report for 192.168.1.2
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.3
+Host is up (0.072s latency).
+Nmap scan report for 192.168.1.4
+Host is up (0.028s latency).
+Nmap scan report for 192.168.1.5
+Host is up (0.037s latency).
+Nmap scan report for 192.168.1.6
+Host is up (0.037s latency).
+Nmap scan report for 192.168.1.7
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.8
+Host is up (0.041s latency).
+Nmap scan report for 192.168.1.9
+Host is up (0.041s latency).
+Nmap scan report for 192.168.1.10
+Host is up (0.051s latency).
+Nmap scan report for 192.168.1.11
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.12
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.13
+Host is up (0.050s latency).
+Nmap scan report for 192.168.1.14
+Host is up (0.066s latency).
+Nmap scan report for 192.168.1.15
+Host is up (0.066s latency).
+Nmap scan report for 192.168.1.16
+Host is up (0.066s latency).
+Nmap scan report for 192.168.1.17
+Host is up (0.066s latency).
+Nmap scan report for 192.168.1.18
+Host is up (0.032s latency).
+Nmap scan report for 192.168.1.19
+Host is up (0.037s latency).
+Nmap scan report for 192.168.1.20
+Host is up (0.024s latency).
+Nmap scan report for 192.168.1.21
+Host is up (0.024s latency).
+Nmap scan report for 192.168.1.22
+Host is up (0.024s latency).
+Nmap scan report for 192.168.1.23
+Host is up (0.061s latency).
+Nmap scan report for 192.168.1.24
+Host is up (0.061s latency).
+Nmap scan report for 192.168.1.25
+Host is up (0.061s latency).
+Nmap scan report for 192.168.1.26
+Host is up (0.024s latency).
+Nmap scan report for 192.168.1.27
+Host is up (0.038s latency).
+Nmap scan report for 192.168.1.28
+Host is up (0.024s latency).
+Nmap scan report for 192.168.1.29
+Host is up (0.024s latency).
+Nmap scan report for 192.168.1.30
+Host is up (0.043s latency).
+Nmap scan report for 192.168.1.31
+Host is up (0.027s latency).
+Nmap scan report for 192.168.1.32
+Host is up (0.027s latency).
+Nmap scan report for 192.168.1.33
+Host is up (0.042s latency).
+Nmap scan report for 192.168.1.34
+Host is up (0.042s latency).
+Nmap scan report for 192.168.1.35
+Host is up (0.042s latency).
+Nmap scan report for 192.168.1.36
+Host is up (0.042s latency).
+Nmap scan report for 192.168.1.37
+Host is up (0.027s latency).
+Nmap scan report for 192.168.1.38
+Host is up (0.027s latency).
+Nmap scan report for 192.168.1.39
+Host is up (0.027s latency).
+Nmap scan report for 192.168.1.40
+Host is up (0.027s latency).
+Nmap scan report for 192.168.1.41
+Host is up (0.020s latency).
+Nmap scan report for 192.168.1.42
+Host is up (0.098s latency).
+Nmap scan report for 192.168.1.43
+Host is up (0.021s latency).
+Nmap scan report for 192.168.1.44
+Host is up (0.026s latency).
+Nmap scan report for 192.168.1.45
+Host is up (0.051s latency).
+Nmap scan report for 192.168.1.46
+Host is up (0.051s latency).
+Nmap scan report for 192.168.1.47
+Host is up (0.053s latency).
+Nmap scan report for 192.168.1.48
+Host is up (0.052s latency).
+Nmap scan report for 192.168.1.49
+Host is up (0.038s latency).
+Nmap scan report for 192.168.1.50
+Host is up (0.038s latency).
+Nmap scan report for 192.168.1.51
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.52
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.53
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.54
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.55
+Host is up (0.038s latency).
+Nmap scan report for 192.168.1.56
+Host is up (0.038s latency).
+Nmap scan report for 192.168.1.57
+Host is up (0.053s latency).
+Nmap scan report for 192.168.1.58
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.59
+Host is up (0.050s latency).
+Nmap scan report for 192.168.1.60
+Host is up (0.055s latency).
+Nmap scan report for 192.168.1.61
+Host is up (0.056s latency).
+Nmap scan report for 192.168.1.62
+Host is up (0.056s latency).
+Nmap scan report for 192.168.1.63
+Host is up (0.056s latency).
+Nmap scan report for 192.168.1.64
+Host is up (0.056s latency).
+Nmap scan report for 192.168.1.65
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.66
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.67
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.68
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.69
+Host is up (0.047s latency).
+Nmap scan report for 192.168.1.70
+Host is up (0.036s latency).
+Nmap scan report for 192.168.1.71
+Host is up (0.036s latency).
+Nmap scan report for 192.168.1.72
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.73
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.74
+Host is up (0.050s latency).
+Nmap scan report for 192.168.1.75
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.76
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.77
+Host is up (0.051s latency).
+Nmap scan report for 192.168.1.78
+Host is up (0.048s latency).
+Nmap scan report for 192.168.1.79
+Host is up (0.027s latency).
+Nmap scan report for 192.168.1.80
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.81
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.82
+Host is up (0.058s latency).
+Nmap scan report for 192.168.1.83
+Host is up (0.058s latency).
+Nmap scan report for 192.168.1.84
+Host is up (0.027s latency).
+Nmap scan report for 192.168.1.85
+Host is up (0.027s latency).
+Nmap scan report for 192.168.1.86
+Host is up (0.058s latency).
+Nmap scan report for 192.168.1.87
+Host is up (0.057s latency).
+Nmap scan report for 192.168.1.88
+Host is up (0.057s latency).
+Nmap scan report for 192.168.1.89
+Host is up (0.057s latency).
+Nmap scan report for 192.168.1.90
+Host is up (0.058s latency).
+Nmap scan report for 192.168.1.91
+Host is up (0.058s latency).
+Nmap scan report for 192.168.1.92
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.93
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.94
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.95
+Host is up (0.058s latency).
+Nmap scan report for 192.168.1.96
+Host is up (0.053s latency).
+Nmap scan report for 192.168.1.97
+Host is up (0.045s latency).
+Nmap scan report for 192.168.1.98
+Host is up (0.047s latency).
+Nmap scan report for 192.168.1.99
+Host is up (0.067s latency).
+Nmap scan report for 192.168.1.100
+Host is up (0.067s latency).
+Nmap scan report for 192.168.1.101
+Host is up (0.046s latency).
+Nmap scan report for 192.168.1.102
+Host is up (0.067s latency).
+Nmap scan report for 192.168.1.103
+Host is up (0.069s latency).
+Nmap scan report for 192.168.1.104
+Host is up (0.044s latency).
+Nmap scan report for 192.168.1.105
+Host is up (0.038s latency).
+Nmap scan report for 192.168.1.106
+Host is up (0.038s latency).
+Nmap scan report for 192.168.1.107
+Host is up (0.037s latency).
+Nmap scan report for 192.168.1.108
+Host is up (0.037s latency).
+Nmap scan report for 192.168.1.109
+Host is up (0.040s latency).
+Nmap scan report for 192.168.1.110
+Host is up (0.040s latency).
+Nmap scan report for 192.168.1.111
+Host is up (0.040s latency).
+Nmap scan report for 192.168.1.112
+Host is up (0.040s latency).
+Nmap scan report for 192.168.1.113
+Host is up (0.054s latency).
+Nmap scan report for 192.168.1.114
+Host is up (0.053s latency).
+Nmap scan report for 192.168.1.115
+Host is up (0.045s latency).
+Nmap scan report for 192.168.1.116
+Host is up (0.052s latency).
+Nmap scan report for 192.168.1.117
+Host is up (0.055s latency).
+Nmap scan report for 192.168.1.118
+Host is up (0.052s latency).
+Nmap scan report for 192.168.1.119
+Host is up (0.045s latency).
+Nmap scan report for 192.168.1.120
+Host is up (0.052s latency).
+Nmap scan report for 192.168.1.121
+Host is up (0.052s latency).
+Nmap scan report for 192.168.1.122
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.123
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.124
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.125
+Host is up (0.039s latency).
+Nmap scan report for 192.168.1.126
+Host is up (0.044s latency).
+Nmap scan report for 192.168.1.127
+Host is up (0.044s latency).
+Nmap scan report for 192.168.1.128
+Host is up (0.044s latency).
+Nmap scan report for 192.168.1.129
+Host is up (0.044s latency).
+Nmap scan report for 192.168.1.130
+Host is up (0.044s latency).
+Nmap scan report for 192.168.1.131
+Host is up (0.052s latency).
+Nmap scan report for 192.168.1.132
+Host is up (0.052s latency).
+Nmap scan report for 192.168.1.133
+Host is up (0.045s latency).
+Nmap scan report for 192.168.1.134
+Host is up (0.052s latency).
+Nmap scan report for 192.168.1.135
+Host is up (0.052s latency).
+Nmap scan report for 192.168.1.136
+Host is up (0.054s latency).
+Nmap scan report for 192.168.1.137
+Host is up (0.045s latency).
+Nmap scan report for 192.168.1.138
+Host is up (0.041s latency).
+Nmap scan report for 192.168.1.139
+Host is up (0.041s latency).
+Nmap scan report for 192.168.1.140
+Host is up (0.032s latency).
+Nmap scan report for 192.168.1.141
+Host is up (0.032s latency).
+Nmap scan report for 192.168.1.142
+Host is up (0.032s latency).
+Nmap scan report for 192.168.1.143
+Host is up (0.033s latency).
+Nmap scan report for 192.168.1.144
+Host is up (0.033s latency).
+Nmap scan report for 192.168.1.145
+Host is up (0.035s latency).
+Nmap scan report for 192.168.1.146
+Host is up (0.035s latency).
+Nmap scan report for 192.168.1.147
+Host is up (0.027s latency).
+Nmap scan report for 192.168.1.148
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.149
+Host is up (0.051s latency).
+Nmap scan report for 192.168.1.150
+Host is up (0.046s latency).
+Nmap scan report for 192.168.1.151
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.152
+Host is up (0.23s latency).
+Nmap scan report for 192.168.1.153
+Host is up (0.22s latency).
+Nmap scan report for 192.168.1.154
+Host is up (0.051s latency).
+Nmap scan report for 192.168.1.155
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.156
+Host is up (0.051s latency).
+Nmap scan report for 192.168.1.157
+Host is up (0.051s latency).
+Nmap scan report for 192.168.1.158
+Host is up (0.023s latency).
+Nmap scan report for 192.168.1.159
+Host is up (0.023s latency).
+Nmap scan report for 192.168.1.160
+Host is up (0.023s latency).
+Nmap scan report for 192.168.1.161
+Host is up (0.023s latency).
+Nmap scan report for 192.168.1.162
+Host is up (0.022s latency).
+Nmap scan report for 192.168.1.163
+Host is up (0.033s latency).
+Nmap scan report for 192.168.1.164
+Host is up (0.033s latency).
+Nmap scan report for 192.168.1.165
+Host is up (0.033s latency).
+Nmap scan report for 192.168.1.166
+Host is up (0.033s latency).
+Nmap scan report for 192.168.1.167
+Host is up (0.051s latency).
+Nmap scan report for 192.168.1.168
+Host is up (0.051s latency).
+Nmap scan report for 192.168.1.169
+Host is up (0.048s latency).
+Nmap scan report for 192.168.1.170
+Host is up (0.051s latency).
+Nmap scan report for 192.168.1.171
+Host is up (0.051s latency).
+Nmap scan report for 192.168.1.172
+Host is up (0.051s latency).
+Nmap scan report for 192.168.1.173
+Host is up (0.048s latency).
+Nmap scan report for 192.168.1.174
+Host is up (0.051s latency).
+Nmap scan report for 192.168.1.175
+Host is up (0.051s latency).
+Nmap scan report for 192.168.1.176
+Host is up (0.032s latency).
+Nmap scan report for 192.168.1.177
+Host is up (0.048s latency).
+Nmap scan report for 192.168.1.178
+Host is up (0.048s latency).
+Nmap scan report for 192.168.1.179
+Host is up (0.019s latency).
+Nmap scan report for 192.168.1.180
+Host is up (0.028s latency).
+Nmap scan report for 192.168.1.181
+Host is up (0.028s latency).
+Nmap scan report for 192.168.1.182
+Host is up (0.048s latency).
+Nmap scan report for 192.168.1.183
+Host is up (0.047s latency).
+Nmap scan report for 192.168.1.184
+Host is up (0.061s latency).
+Nmap scan report for 192.168.1.185
+Host is up (0.046s latency).
+Nmap scan report for 192.168.1.186
+Host is up (0.046s latency).
+Nmap scan report for 192.168.1.187
+Host is up (0.047s latency).
+Nmap scan report for 192.168.1.188
+Host is up (0.045s latency).
+Nmap scan report for 192.168.1.189
+Host is up (0.045s latency).
+Nmap scan report for 192.168.1.190
+Host is up (0.045s latency).
+Nmap scan report for 192.168.1.191
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.192
+Host is up (0.052s latency).
+Nmap scan report for 192.168.1.193
+Host is up (0.052s latency).
+Nmap scan report for 192.168.1.194
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.195
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.196
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.197
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.198
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.199
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.200
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.201
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.202
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.203
+Host is up (0.052s latency).
+Nmap scan report for 192.168.1.204
+Host is up (0.054s latency).
+Nmap scan report for 192.168.1.205
+Host is up (0.027s latency).
+Nmap scan report for 192.168.1.206
+Host is up (0.053s latency).
+Nmap scan report for 192.168.1.207
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.208
+Host is up (0.055s latency).
+Nmap scan report for 192.168.1.209
+Host is up (0.027s latency).
+Nmap scan report for 192.168.1.210
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.211
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.212
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.213
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.214
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.215
+Host is up (0.060s latency).
+Nmap scan report for 192.168.1.216
+Host is up (0.048s latency).
+Nmap scan report for 192.168.1.217
+Host is up (0.036s latency).
+Nmap scan report for 192.168.1.218
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.219
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.220
+Host is up (0.049s latency).
+Nmap scan report for 192.168.1.221
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.222
+Host is up (0.045s latency).
+Nmap scan report for 192.168.1.223
+Host is up (0.015s latency).
+Nmap scan report for 192.168.1.224
+Host is up (0.045s latency).
+Nmap scan report for 192.168.1.225
+Host is up (0.059s latency).
+Nmap scan report for 192.168.1.226
+Host is up (0.058s latency).
+Nmap scan report for 192.168.1.227
+Host is up (0.020s latency).
+Nmap scan report for 192.168.1.228
+Host is up (0.085s latency).
+Nmap scan report for 192.168.1.229
+Host is up (0.085s latency).
+Nmap scan report for 192.168.1.230
+Host is up (0.054s latency).
+Nmap scan report for 192.168.1.231
+Host is up (0.054s latency).
+Nmap scan report for 192.168.1.232
+Host is up (0.054s latency).
+Nmap scan report for 192.168.1.233
+Host is up (0.073s latency).
+Nmap scan report for 192.168.1.234
+Host is up (0.073s latency).
+Nmap scan report for 192.168.1.235
+Host is up (0.073s latency).
+Nmap scan report for 192.168.1.236
+Host is up (0.073s latency).
+Nmap scan report for 192.168.1.237
+Host is up (0.073s latency).
+Nmap scan report for 192.168.1.238
+Host is up (0.073s latency).
+Nmap scan report for 192.168.1.239
+Host is up (0.069s latency).
+Nmap scan report for 192.168.1.240
+Host is up (0.069s latency).
+Nmap scan report for 192.168.1.241
+Host is up (0.026s latency).
+Nmap scan report for 192.168.1.242
+Host is up (0.069s latency).
+Nmap scan report for 192.168.1.243
+Host is up (0.068s latency).
+Nmap scan report for 192.168.1.244
+Host is up (0.068s latency).
+Nmap scan report for 192.168.1.245
+Host is up (0.034s latency).
+Nmap scan report for 192.168.1.246
+Host is up (0.068s latency).
+Nmap scan report for 192.168.1.247
+Host is up (0.068s latency).
+Nmap scan report for 192.168.1.248
+Host is up (0.072s latency).
+Nmap scan report for 192.168.1.249
+Host is up (0.072s latency).
+Nmap scan report for 192.168.1.250
+Host is up (0.072s latency).
+Nmap scan report for 192.168.1.251
+Host is up (0.072s latency).
+Nmap scan report for 192.168.1.252
+Host is up (0.072s latency).
+Nmap scan report for 192.168.1.253
+Host is up (0.072s latency).
+Nmap scan report for 192.168.1.254
+Host is up (0.072s latency).
+Nmap scan report for 192.168.1.255
+Host is up (0.072s latency).
+Nmap done: 256 IP addresses (256 hosts up) scanned in 66.34 seconds
+
+[2026-02-07 14:07:36] Executing: nmap -T4 127.0.0.1
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-02-07 14:07 +0530
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000078s latency).
+Not shown: 995 closed tcp ports (reset)
+PORT     STATE SERVICE
+3306/tcp open  mysql
+5000/tcp open  upnp
+5001/tcp open  commplex-link
+5002/tcp open  rfe
+7000/tcp open  afs3-fileserver
+
+Nmap done: 1 IP address (1 host up) scanned in 0.04 seconds
+
+[2026-02-07 14:07:36] Executing: sudo nmap -sU --top-ports 100 127.0.0.1
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-02-07 14:07 +0530
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00020s latency).
+Not shown: 97 closed udp ports (port-unreach)
+PORT     STATE         SERVICE
+137/udp  open|filtered netbios-ns
+138/udp  open|filtered netbios-dgm
+5353/udp open          zeroconf
+
+Nmap done: 1 IP address (1 host up) scanned in 1.27 seconds
+
+[2026-02-07 14:07:37] Executing: sudo nmap -O 127.0.0.1
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-02-07 14:07 +0530
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.00015s latency).
+Not shown: 995 closed tcp ports (reset)
+PORT     STATE SERVICE
+3306/tcp open  mysql
+5000/tcp open  upnp
+5001/tcp open  commplex-link
+5002/tcp open  rfe
+7000/tcp open  afs3-fileserver
+Device type: general purpose
+Running: Apple macOS 12.X
+OS CPE: cpe:/o:apple:mac_os_x:12
+OS details: Apple macOS 12 (Monterey) (Darwin 21.1.0 - 21.6.0)
+Network Distance: 0 hops
+
+OS detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 1.54 seconds
+
+=== SESSION STARTED: 2026-02-07 14:12:12 ===
+
+[2026-02-07 14:12:12] Executing: nmap --script vuln 127.0.0.1
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-02-07 14:12 +0530
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.0000070s latency).
+Not shown: 995 closed tcp ports (reset)
+PORT     STATE SERVICE
+3306/tcp open  mysql
+5000/tcp open  upnp
+5001/tcp open  commplex-link
+5002/tcp open  rfe
+7000/tcp open  afs3-fileserver
+
+Nmap done: 1 IP address (1 host up) scanned in 36.64 seconds
+
+[2026-02-07 14:12:49] Executing: nmap --script auth,default,discovery 127.0.0.1
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-02-07 14:12 +0530
+NSOCK ERROR [0.1380s] nsock_pcap_open(): pcap_activate(anpi1) WARNING: BIOCPROMISC: Operation not supported on socket.
+No profinet devices in the subnet
+Pre-scan script results:
+|_broadcast-ospf2-discover: ERROR: Script execution failed (use -d to debug)
+| targets-asn: 
+|_  targets-asn.asn is a mandatory parameter
+|_http-robtex-shared-ns: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+|_mrinfo: ERROR: Script execution failed (use -d to debug)
+|_broadcast-pim-discovery: ERROR: Script execution failed (use -d to debug)
+|_knx-gateway-discover: ERROR: Script execution failed (use -d to debug)
+|_broadcast-eigrp-discovery: ERROR: Script execution failed (use -d to debug)
+|_broadcast-igmp-discovery: ERROR: Script execution failed (use -d to debug)
+|_hostmap-robtex: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+|_targets-sniffer: Sniffed 0 address(es). 
+Bug in lltd-discovery: no string output.
+| targets-ipv6-multicast-echo: 
+|   IP: fe80::f09f:77ff:fe28:36ec  MAC: f2:9f:77:28:36:ec  IFACE: en1
+|   IP: 2409:40c2:10b:c03f::13     MAC: f2:9f:77:28:36:ec  IFACE: en1
+|_  Use --script-args=newtargets to add the results as targets
+| targets-ipv6-multicast-invalid-dst: 
+|   IP: fe80::f09f:77ff:fe28:36ec  MAC: f2:9f:77:28:36:ec  IFACE: en1
+|   IP: 2409:40c2:10b:c03f::13     MAC: f2:9f:77:28:36:ec  IFACE: en1
+|_  Use --script-args=newtargets to add the results as targets
+| targets-ipv6-multicast-mld: 
+|   IP: fe80::53c6:fb2f:eb39:1384  MAC: e0:2b:e9:7c:5e:de  IFACE: en1
+| 
+|_  Use --script-args=newtargets to add the results as targets
+| ipv6-multicast-mld-list: 
+|   fe80::53c6:fb2f:eb39:1384: 
+|     device: en1
+|     mac: e0:2b:e9:7c:5e:de
+|     multicast_ips: 
+|_      ff02::fb                  (mDNSv6)
+
+[2026-02-07 14:13:00] Executing: nmap -sA -T4 127.0.0.1
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-02-07 14:13 +0530
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000020s latency).
+All 1000 scanned ports on localhost (127.0.0.1) are in ignored states.
+Not shown: 1000 unfiltered tcp ports (reset)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.02 seconds
+
+[2026-02-07 14:13:00] Executing: sudo find / -perm -4000 -type f 2>/dev/null
+/usr/bin/top
+/usr/bin/atq
+/usr/bin/crontab
+/usr/bin/atrm
+/usr/bin/newgrp
+/usr/bin/su
+/usr/bin/batch
+/usr/bin/at
+/usr/bin/quota
+/usr/bin/sudo
+/usr/bin/login
+/usr/libexec/security_authtrampoline
+/usr/libexec/authopen
+/usr/sbin/traceroute6
+/usr/sbin/traceroute
+/bin/ps
+/Library/Application Support/Google/GoogleUpdater/144.0.7547.0/GoogleUpdater.app/Contents/Helpers/launcher
+/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/MacOS/ARDAgent
+/System/Volumes/Data/Library/Application Support/Google/GoogleUpdater/144.0.7547.0/GoogleUpdater.app/Contents/Helpers/launcher
+/System/Volumes/Data/System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/MacOS/ARDAgent
+
+[2026-02-07 14:15:27] Executing: sudo crontab -l 2>/dev/null
+
+[2026-02-07 14:15:27] Executing: pwpolicy getaccountpolicies 2>/dev/null || echo 'Policy not accessible'
+Getting global account policies
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>policyCategoryPasswordContent</key>
+	<array>
+		<dict>
+			<key>policyContent</key>
+			<string>policyAttributePassword matches '.{4,}+'</string>
+			<key>policyContentDescription</key>
+			<dict>
+				<key>ar</key>
+				<string>أدخل كلمة سر لا تقل عن أربعة أحرف أو رموز.</string>
+				<key>ca</key>
+				<string>Introdueix una contrasenya que tingui quatre caràcters o més.</string>
+				<key>cs</key>
+				<string>Zadejte heslo o minimální délce čtyři znaky.</string>
+				<key>da</key>
+				<string>Skriv en adgangskode på mindst fire tegn.</string>
+				<key>de</key>
+				<string>Gib ein Passwort ein, das aus mindestens vier Zeichen besteht.</string>
+				<key>el</key>
+				<string>Εισαγάγετε ένα συνθηματικό που περιέχει τέσσερις ή περισσότερους χαρακτήρες.</string>
+				<key>en</key>
+				<string>Enter a password that is four characters or more.</string>
+				<key>en_AU</key>
+				<string>Enter a password that is four characters or more.</string>
+				<key>en_GB</key>
+				<string>Enter a password that is four characters or more.</string>
+				<key>es</key>
+				<string>Introduce una contraseña que tenga como mínimo cuatro caracteres.</string>
+				<key>es_419</key>
+				<string>Ingresa una contraseña de cuatro caracteres o más.</string>
+				<key>fi</key>
+				<string>Kirjoita salasana, jossa on vähintään neljä merkkiä.</string>
+				<key>fr</key>
+				<string>Saisissez un mot de passe comportant au moins quatre caractères.</string>
+				<key>fr_CA</key>
+				<string>Saisissez un mot de passe comportant au moins quatre caractères.</string>
+				<key>he</key>
+				<string>יש להזין סיסמה בת ארבעה תווים או יותר.</string>
+				<key>hi</key>
+				<string>चार वर्णों वाला या उससे बड़ा पासवर्ड दर्ज करें।</string>
+				<key>hr</key>
+				<string>Unesite lozinku od četiri ili više znakova.</string>
+				<key>hu</key>
+				<string>Adjon meg egy legalább négy karakterből álló jelszót.</string>
+				<key>id</key>
+				<string>Masukkan kata sandi yang terdiri dari empat karakter atau lebih.</string>
+				<key>it</key>
+				<string>Inserisci una password di quattro o più caratteri.</string>
+				<key>ja</key>
+				<string>4文字以上のパスワードを入力してください。</string>
+				<key>ko</key>
+				<string>4자 이상의 암호를 입력하십시오.</string>
+				<key>ms</key>
+				<string>Masukkan kata laluan yang mengandungi empat atau lebih aksara.</string>
+				<key>nl</key>
+				<string>Voer een wachtwoord van vier of meer tekens in.</string>
+				<key>no</key>
+				<string>Angi et passord på minst fire tegn.</string>
+				<key>pl</key>
+				<string>Podaj hasło składające się z co najmniej czterech znaków.</string>
+				<key>pt_BR</key>
+				<string>Digite uma senha com quatro ou mais caracteres.</string>
+				<key>pt_PT</key>
+				<string>Digite uma palavra‑passe com pelo menos quatro caracteres.</string>
+				<key>ro</key>
+				<string>Introduceți o parolă de minimum patru caractere.</string>
+				<key>ru</key>
+				<string>Введите пароль, состоящий из четырех или более символов.</string>
+				<key>sk</key>
+				<string>Zadajte heslo obsahujúce najmenej štyri znaky.</string>
+				<key>sl</key>
+				<string>Vnesite geslo, ki vsebuje štiri znake ali več.</string>
+				<key>sv</key>
+				<string>Ange ett lösenord som är minst fyra tecken långt.</string>
+				<key>th</key>
+				<string>ป้อนรหัสผ่านที่มีอักขระอย่างน้อยสี่ตัว</string>
+				<key>tr</key>
+				<string>En az dört karakter uzunluğunda bir parola girin.</string>
+				<key>uk</key>
+				<string>Введіть пароль зі щонайменше чотирьох символів.</string>
+				<key>vi</key>
+				<string>Nhập mật khẩu dài 4 ký tự trở lên.</string>
+				<key>zh_CN</key>
+				<string>输入不少于4个字符的密码。</string>
+				<key>zh_HK</key>
+				<string>輸入一個四位或更多字元的密碼。</string>
+				<key>zh_TW</key>
+				<string>輸入4個字元或更長的密碼。</string>
+			</dict>
+			<key>policyIdentifier</key>
+			<string>com.apple.defaultpasswordpolicy.fde</string>
+		</dict>
+	</array>
+</dict>
+</plist>
+
+
+[2026-02-07 14:15:27] Executing: dscl . -list /Users | grep -v "_"
+daemon
+nobody
+root
+yash
+
+[2026-02-07 14:15:27] Executing: sudo lsof -iTCP -sTCP:LISTEN
+COMMAND     PID      USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+symptomsd   487 _networkd   20u  IPv6 0xe4042846288d2861      0t0  TCP *:61202 (LISTEN)
+mysqld      501    _mysql   19u  IPv6 0x707c57ddb86bef5a      0t0  TCP *:33060 (LISTEN)
+mysqld      501    _mysql   21u  IPv6 0x8185e2db0cd9315e      0t0  TCP *:mysql (LISTEN)
+rapportd    651      yash    3u  IPv4 0xbf721889dab2e1b8      0t0  TCP *:57911 (LISTEN)
+rapportd    651      yash    4u  IPv6  0xaa2a01d3f918112      0t0  TCP *:57911 (LISTEN)
+Electron  25047      yash   46u  IPv6 0xa397eca5b5936f85      0t0  TCP *:57366 (LISTEN)
+Antigravi 25092      yash   48u  IPv4 0x5075b5cffdb6c946      0t0  TCP localhost:57372 (LISTEN)
+language_ 25112      yash   21u  IPv4 0x2120c2a10e64c6a2      0t0  TCP localhost:57373 (LISTEN)
+language_ 25112      yash   22u  IPv4 0x9c21deaa6e453f7b      0t0  TCP localhost:57374 (LISTEN)
+language_ 25112      yash   26u  IPv4 0x1624f42639471083      0t0  TCP localhost:57387 (LISTEN)
+ControlCe 28203      yash    9u  IPv4 0x98546489e85fc564      0t0  TCP *:afs3-fileserver (LISTEN)
+ControlCe 28203      yash   10u  IPv6 0x9b5b8cfc4a75d22b      0t0  TCP *:afs3-fileserver (LISTEN)
+ControlCe 28203      yash   11u  IPv4 0x840444601b1e2bcd      0t0  TCP *:commplex-main (LISTEN)
+ControlCe 28203      yash   12u  IPv6 0xfc388bc759628893      0t0  TCP *:commplex-main (LISTEN)
+python3.1 30203      root    6u  IPv4 0xafea4a76becafde9      0t0  TCP *:commplex-link (LISTEN)
+python3.1 30205      root    6u  IPv4 0xafea4a76becafde9      0t0  TCP *:commplex-link (LISTEN)
+python3.1 30205      root    9u  IPv4 0xafea4a76becafde9      0t0  TCP *:commplex-link (LISTEN)
+python3.1 30245      yash    3u  IPv4 0xe84020717806e5a8      0t0  TCP *:rfe (LISTEN)
+
+[2026-02-07 14:15:27] Executing: launchctl list | head -50
+PID	Status	Label
+-	0	com.apple.mobile.obliteration
+427	0	com.apple.security.cryptexd
+558	0	com.apple.CoreAuthentication.daemon
+400	0	com.apple.coreservicesd
+562	0	com.apple.modelcatalogd
+-	0	com.apple.touchbarserver
+837	0	com.apple.deleted_helper
+-	0	com.apple.avbdeviced
+985	0	com.apple.cvmsServ
+-	0	com.apple.swiftuitracingsupport.xpc
+-	0	com.apple.applessdstatistics
+-	0	com.apple.corercd
+-	0	com.apple.hdiejectd
+-	0	com.apple.corestorage.corestoraged
+500	0	com.apple.storagekitd
+-	0	com.apple.pcapd
+499	0	com.apple.biomed
+904	0	com.apple.ospredictiond
+-	0	com.apple.storereceiptinstaller
+519	0	com.apple.mobileactivationd
+569	0	com.apple.seld
+554	0	com.apple.PerfPowerTelemetryClientRegistrationService
+2413	0	com.apple.ecosystemd
+2758	0	com.apple.iconservices.iconservicesagent
+-	0	com.apple.asr
+511	0	com.apple.audiomxd
+-	0	com.apple.RosettaUpdateService
+-	0	com.apple.logkextloadsd
+354	0	com.apple.syslogd
+555	0	com.apple.symptomsd-diag
+394	0	com.apple.WindowServer
+-	0	com.apple.NetworkSharing
+-	0	com.apple.afpfs_checkafp
+1597	0	com.apple.systemstats.microstackshot_periodic
+-	0	com.apple.AppSSOAgent.login
+19969	0	com.apple.diagnosticservicesd
+364	0	com.apple.securityd
+-	0	com.apple.attentionawarenessd
+367	0	com.apple.nesessionmanager
+-	0	com.apple.cfnetwork.cfnetworkagent
+-	0	com.apple.ocspd
+487	0	com.apple.symptomsd
+369	0	com.apple.autofsd
+320	0	com.apple.UserEventAgent-System
+-	0	com.apple.Kerberos.kadmind
+2717	0	com.apple.griddatad
+788	0	com.apple.coresymbolicationd
+-	0	com.apple.PerfPowerServicesExtended
+530	0	com.apple.suhelperd
+
+[2026-02-07 14:15:27] Executing: ls /Library/LaunchDaemons 2>/dev/null
+com.google.GoogleUpdater.wake.system.plist
+com.google.keystone.daemon.plist
+com.oracle.oss.mysql.mysqld.plist
+org.chromium.chromoting.broker.plist
+
+[2026-02-07 14:15:27] Executing: netstat -rn
+Routing tables
+
+Internet:
+Destination        Gateway            Flags               Netif Expire
+default            10.227.161.241     UGScg                 en1       
+10.227.161/24      link#15            UCS                   en1      !
+10.227.161.51/32   link#15            UCS                   en1      !
+10.227.161.51      b6:a0:fb:11:2c:a5  UHLWI                 lo0       
+10.227.161.172     e0:2b:e9:7c:5e:de  UHLWI                 en1      !
+10.227.161.241/32  link#15            UCS                   en1      !
+10.227.161.241     f2:9f:77:28:36:ec  UHLWIir               en1   1196
+10.227.161.255     ff:ff:ff:ff:ff:ff  UHLWbI                en1      !
+127                127.0.0.1          UCS                   lo0       
+127.0.0.1          127.0.0.1          UH                    lo0       
+169.254            link#15            UCS                   en1      !
+224.0.0/4          link#15            UmCS                  en1      !
+224.0.0.251        1:0:5e:0:0:fb      UHmLWI                en1       
+224.0.23.12        1:0:5e:0:17:c      UHmLWI                en1       
+255.255.255.255/32 link#15            UCS                   en1      !
+255.255.255.255    ff:ff:ff:ff:ff:ff  UHLWbI                en1      !
+
+Internet6:
+Destination                             Gateway                                 Flags               Netif Expire
+default                                 fe80::f09f:77ff:fe28:36ec%en1           UGcg                  en1       
+default                                 fe80::%utun0                            UGcIg               utun0       
+default                                 fe80::%utun1                            UGcIg               utun1       
+default                                 fe80::%utun2                            UGcIg               utun2       
+default                                 fe80::%utun3                            UGcIg               utun3       
+::1                                     ::1                                     UHL                   lo0       
+2409:40c2:10b:c03f::/64                 link#15                                 UC                    en1       
+2409:40c2:10b:c03f::13                  f2:9f:77:28:36:ec                       UHLWIi                en1       
+2409:40c2:10b:c03f:ca6:80e:45c:7019     b6:a0:fb:11:2c:a5                       UHL                   lo0       
+2409:40c2:10b:c03f:b4dc:51e6:92e7:bf5d  b6:a0:fb:11:2c:a5                       UHL                   lo0       
+fe80::%lo0/64                           fe80::1%lo0                             UcI                   lo0       
+fe80::1%lo0                             link#1                                  UHLI                  lo0       
+fe80::%en1/64                           link#15                                 UCI                   en1       
+fe80::146b:c9e8:ccf6:b8d9%en1           b6:a0:fb:11:2c:a5                       UHLI                  lo0       
+fe80::f09f:77ff:fe28:36ec%en1           f2:9f:77:28:36:ec                       UHLWIir               en1       
+fe80::%utun0/64                         fe80::67c5:9840:5421:dddc%utun0         UcI                 utun0       
+fe80::67c5:9840:5421:dddc%utun0         link#17                                 UHLI                  lo0       
+fe80::%utun1/64                         fe80::6c5e:15df:f880:866c%utun1         UcI                 utun1       
+fe80::6c5e:15df:f880:866c%utun1         link#18                                 UHLI                  lo0       
+fe80::%utun2/64                         fe80::ce81:b1c:bd2c:69e%utun2           UcI                 utun2       
+fe80::ce81:b1c:bd2c:69e%utun2           link#19                                 UHLI                  lo0       
+fe80::%awdl0/64                         link#20                                 UCI                 awdl0       
+fe80::50f7:98ff:fe73:cc35%awdl0         52:f7:98:73:cc:35                       UHLI                  lo0       
+fe80::50f7:98ff:fe73:cc35%llw0          52:f7:98:73:cc:35                       UHLI                  lo0       
+fe80::%utun3/64                         fe80::57c0:f504:72e5:5848%utun3         UcI                 utun3       
+fe80::57c0:f504:72e5:5848%utun3         link#22                                 UHLI                  lo0       
+ff00::/8                                ::1                                     UmCI                  lo0       
+ff00::/8                                link#7                                  UmCI                  en0       
+ff00::/8                                link#15                                 UmCI                  en1       
+ff00::/8                                fe80::67c5:9840:5421:dddc%utun0         UmCI                utun0       
+ff00::/8                                fe80::6c5e:15df:f880:866c%utun1         UmCI                utun1       
+ff00::/8                                fe80::ce81:b1c:bd2c:69e%utun2           UmCI                utun2       
+ff00::/8                                link#20                                 UmCI                awdl0       
+ff00::/8                                link#21                                 UmCI                 llw0       
+ff00::/8                                fe80::57c0:f504:72e5:5848%utun3         UmCI                utun3       
+ff01::%lo0/32                           ::1                                     UmCI                  lo0       
+ff01::%en0/32                           link#7                                  UmCI                  en0       
+ff01::%en1/32                           link#15                                 UmCI                  en1       
+ff01::%utun0/32                         fe80::67c5:9840:5421:dddc%utun0         UmCI                utun0       
+ff01::%utun1/32                         fe80::6c5e:15df:f880:866c%utun1         UmCI                utun1       
+ff01::%utun2/32                         fe80::ce81:b1c:bd2c:69e%utun2           UmCI                utun2       
+ff01::%awdl0/32                         link#20                                 UmCI                awdl0       
+ff01::%utun3/32                         fe80::57c0:f504:72e5:5848%utun3         UmCI                utun3       
+ff02::%lo0/32                           ::1                                     UmCI                  lo0       
+ff02::%en0/32                           link#7                                  UmCI                  en0       
+ff02::%en1/32                           link#15                                 UmCI                  en1       
+ff02::%utun0/32                         fe80::67c5:9840:5421:dddc%utun0         UmCI                utun0       
+ff02::%utun1/32                         fe80::6c5e:15df:f880:866c%utun1         UmCI                utun1       
+ff02::%utun2/32                         fe80::ce81:b1c:bd2c:69e%utun2           UmCI                utun2       
+ff02::%awdl0/32                         link#20                                 UmCI                awdl0       
+ff02::%utun3/32                         fe80::57c0:f504:72e5:5848%utun3         UmCI                utun3       
+
+[2026-02-07 14:15:27] Executing: ifconfig
+lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> mtu 16384
+	options=1203<RXCSUM,TXCSUM,TXSTATUS,SW_TIMESTAMP>
+	inet 127.0.0.1 netmask 0xff000000
+	inet6 ::1 prefixlen 128 
+	inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1 
+	nd6 options=201<PERFORMNUD,DAD>
+gif0: flags=8010<POINTOPOINT,MULTICAST> mtu 1280
+stf0: flags=0<> mtu 1280
+anpi1: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=400<CHANNEL_IO>
+	ether fe:a4:05:a1:18:4e
+	media: none
+	status: inactive
+anpi3: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=400<CHANNEL_IO>
+	ether fe:a4:05:a1:18:50
+	media: none
+	status: inactive
+anpi0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=400<CHANNEL_IO>
+	ether fe:a4:05:a1:18:4d
+	media: none
+	status: inactive
+en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=50b<RXCSUM,TXCSUM,VLAN_HWTAGGING,AV,CHANNEL_IO>
+	ether 1c:f6:4c:47:be:14
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect (none)
+	status: inactive
+en5: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=400<CHANNEL_IO>
+	ether fe:a4:05:a1:18:2d
+	nd6 options=201<PERFORMNUD,DAD>
+	media: none
+	status: inactive
+en6: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=400<CHANNEL_IO>
+	ether fe:a4:05:a1:18:2e
+	nd6 options=201<PERFORMNUD,DAD>
+	media: none
+	status: inactive
+en7: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=400<CHANNEL_IO>
+	ether fe:a4:05:a1:18:30
+	nd6 options=201<PERFORMNUD,DAD>
+	media: none
+	status: inactive
+en2: flags=8963<UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST> mtu 1500
+	options=460<TSO4,TSO6,CHANNEL_IO>
+	ether 36:f8:ec:0d:55:80
+	media: autoselect <full-duplex>
+	status: inactive
+en3: flags=8963<UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST> mtu 1500
+	options=460<TSO4,TSO6,CHANNEL_IO>
+	ether 36:f8:ec:0d:55:84
+	media: autoselect <full-duplex>
+	status: inactive
+en4: flags=8963<UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST> mtu 1500
+	options=460<TSO4,TSO6,CHANNEL_IO>
+	ether 36:f8:ec:0d:55:8c
+	media: autoselect <full-duplex>
+	status: inactive
+bridge0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=63<RXCSUM,TXCSUM,TSO4,TSO6>
+	ether 36:f8:ec:0d:55:80
+	Configuration:
+		id 0:0:0:0:0:0 priority 0 hellotime 0 fwddelay 0
+		maxage 0 holdcnt 0 proto stp maxaddr 100 timeout 1200
+		root id 0:0:0:0:0:0 priority 0 ifcost 0 port 0
+		ipfilter disabled flags 0x0
+	member: en2 flags=3<LEARNING,DISCOVER>
+	        ifmaxaddr 0 port 11 priority 0 path cost 0
+	member: en3 flags=3<LEARNING,DISCOVER>
+	        ifmaxaddr 0 port 12 priority 0 path cost 0
+	member: en4 flags=3<LEARNING,DISCOVER>
+	        ifmaxaddr 0 port 13 priority 0 path cost 0
+	nd6 options=201<PERFORMNUD,DAD>
+	media: <unknown type>
+	status: inactive
+utun0: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1380
+	inet6 fe80::67c5:9840:5421:dddc%utun0 prefixlen 64 scopeid 0x11 
+	nd6 options=201<PERFORMNUD,DAD>
+utun1: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 2000
+	inet6 fe80::6c5e:15df:f880:866c%utun1 prefixlen 64 scopeid 0x12 
+	nd6 options=201<PERFORMNUD,DAD>
+utun2: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1000
+	inet6 fe80::ce81:b1c:bd2c:69e%utun2 prefixlen 64 scopeid 0x13 
+	nd6 options=201<PERFORMNUD,DAD>
+ap1: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=6460<TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM>
+	ether e2:14:c6:90:42:c5
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect (none)
+	status: inactive
+en1: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=6460<TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM>
+	ether b6:a0:fb:11:2c:a5
+	inet6 fe80::146b:c9e8:ccf6:b8d9%en1 prefixlen 64 secured scopeid 0xf 
+	inet6 2409:40c2:10b:c03f:ca6:80e:45c:7019 prefixlen 64 autoconf secured 
+	inet6 2409:40c2:10b:c03f:b4dc:51e6:92e7:bf5d prefixlen 64 autoconf temporary 
+	inet 10.227.161.51 netmask 0xffffff00 broadcast 10.227.161.255
+	nat64 prefix 64:ff9b:: prefixlen 96
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect
+	status: active
+awdl0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=6460<TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM>
+	ether 52:f7:98:73:cc:35
+	inet6 fe80::50f7:98ff:fe73:cc35%awdl0 prefixlen 64 scopeid 0x14 
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect
+	status: active
+llw0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=400<CHANNEL_IO>
+	ether 52:f7:98:73:cc:35
+	inet6 fe80::50f7:98ff:fe73:cc35%llw0 prefixlen 64 scopeid 0x15 
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect (none)
+utun3: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1500
+	inet6 fe80::57c0:f504:72e5:5848%utun3 prefixlen 64 scopeid 0x16 
+	nd6 options=201<PERFORMNUD,DAD>
+
+=== SESSION STARTED: 2026-02-07 14:20:19 ===
+
+[2026-02-07 14:20:19] Executing: nmap -sn -PR 192.168.1.0/24
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-02-07 14:20 +0530
+Nmap scan report for 192.168.1.0
+Host is up (0.083s latency).
+Nmap scan report for 192.168.1.1
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.2
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.3
+Host is up (0.20s latency).
+Nmap scan report for 192.168.1.4
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.5
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.6
+Host is up (0.18s latency).
+Nmap scan report for 192.168.1.7
+Host is up (0.079s latency).
+Nmap scan report for 192.168.1.8
+Host is up (0.25s latency).
+Nmap scan report for 192.168.1.9
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.10
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.11
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.12
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.13
+Host is up (0.25s latency).
+Nmap scan report for 192.168.1.14
+Host is up (0.25s latency).
+Nmap scan report for 192.168.1.15
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.16
+Host is up (0.079s latency).
+Nmap scan report for 192.168.1.17
+Host is up (0.17s latency).
+Nmap scan report for 192.168.1.18
+Host is up (0.23s latency).
+Nmap scan report for 192.168.1.19
+Host is up (0.23s latency).
+Nmap scan report for 192.168.1.20
+Host is up (0.23s latency).
+Nmap scan report for 192.168.1.21
+Host is up (0.23s latency).
+Nmap scan report for 192.168.1.22
+Host is up (0.23s latency).
+Nmap scan report for 192.168.1.23
+Host is up (0.17s latency).
+Nmap scan report for 192.168.1.24
+Host is up (0.17s latency).
+Nmap scan report for 192.168.1.25
+Host is up (0.23s latency).
+Nmap scan report for 192.168.1.26
+Host is up (0.24s latency).
+Nmap scan report for 192.168.1.27
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.28
+Host is up (0.14s latency).
+Nmap scan report for 192.168.1.29
+Host is up (0.24s latency).
+Nmap scan report for 192.168.1.30
+Host is up (0.17s latency).
+Nmap scan report for 192.168.1.31
+Host is up (0.14s latency).
+Nmap scan report for 192.168.1.32
+Host is up (0.14s latency).
+Nmap scan report for 192.168.1.33
+Host is up (0.14s latency).
+Nmap scan report for 192.168.1.34
+Host is up (0.14s latency).
+Nmap scan report for 192.168.1.35
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.36
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.37
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.38
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.39
+Host is up (0.17s latency).
+Nmap scan report for 192.168.1.40
+Host is up (0.23s latency).
+Nmap scan report for 192.168.1.41
+Host is up (0.20s latency).
+Nmap scan report for 192.168.1.42
+Host is up (0.20s latency).
+Nmap scan report for 192.168.1.43
+Host is up (0.20s latency).
+Nmap scan report for 192.168.1.44
+Host is up (0.20s latency).
+Nmap scan report for 192.168.1.45
+Host is up (0.15s latency).
+Nmap scan report for 192.168.1.46
+Host is up (0.15s latency).
+Nmap scan report for 192.168.1.47
+Host is up (0.083s latency).
+Nmap scan report for 192.168.1.48
+Host is up (0.15s latency).
+Nmap scan report for 192.168.1.49
+Host is up (0.15s latency).
+Nmap scan report for 192.168.1.50
+Host is up (0.15s latency).
+Nmap scan report for 192.168.1.51
+Host is up (0.17s latency).
+Nmap scan report for 192.168.1.52
+Host is up (0.17s latency).
+Nmap scan report for 192.168.1.53
+Host is up (0.083s latency).
+Nmap scan report for 192.168.1.54
+Host is up (0.083s latency).
+Nmap scan report for 192.168.1.55
+Host is up (0.15s latency).
+Nmap scan report for 192.168.1.56
+Host is up (0.15s latency).
+Nmap scan report for 192.168.1.57
+Host is up (0.15s latency).
+Nmap scan report for 192.168.1.58
+Host is up (0.41s latency).
+Nmap scan report for 192.168.1.59
+Host is up (0.17s latency).
+Nmap scan report for 192.168.1.60
+Host is up (0.17s latency).
+Nmap scan report for 192.168.1.61
+Host is up (0.17s latency).
+Nmap scan report for 192.168.1.62
+Host is up (0.17s latency).
+Nmap scan report for 192.168.1.63
+Host is up (0.17s latency).
+Nmap scan report for 192.168.1.64
+Host is up (0.17s latency).
+Nmap scan report for 192.168.1.65
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.66
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.67
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.68
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.69
+Host is up (0.15s latency).
+Nmap scan report for 192.168.1.70
+Host is up (0.14s latency).
+Nmap scan report for 192.168.1.71
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.72
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.73
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.74
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.75
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.76
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.77
+Host is up (0.14s latency).
+Nmap scan report for 192.168.1.78
+Host is up (0.14s latency).
+Nmap scan report for 192.168.1.79
+Host is up (0.14s latency).
+Nmap scan report for 192.168.1.80
+Host is up (0.14s latency).
+Nmap scan report for 192.168.1.81
+Host is up (0.15s latency).
+Nmap scan report for 192.168.1.82
+Host is up (0.15s latency).
+Nmap scan report for 192.168.1.83
+Host is up (0.096s latency).
+Nmap scan report for 192.168.1.84
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.85
+Host is up (0.15s latency).
+Nmap scan report for 192.168.1.86
+Host is up (0.16s latency).
+Nmap scan report for 192.168.1.87
+Host is up (0.16s latency).
+Nmap scan report for 192.168.1.88
+Host is up (0.16s latency).
+Nmap scan report for 192.168.1.89
+Host is up (0.44s latency).
+Nmap scan report for 192.168.1.90
+Host is up (0.41s latency).
+Nmap scan report for 192.168.1.91
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.92
+Host is up (0.084s latency).
+Nmap scan report for 192.168.1.93
+Host is up (0.084s latency).
+Nmap scan report for 192.168.1.94
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.95
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.96
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.97
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.98
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.99
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.100
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.101
+Host is up (0.087s latency).
+Nmap scan report for 192.168.1.102
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.103
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.104
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.105
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.106
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.107
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.108
+Host is up (0.087s latency).
+Nmap scan report for 192.168.1.109
+Host is up (0.087s latency).
+Nmap scan report for 192.168.1.110
+Host is up (0.097s latency).
+Nmap scan report for 192.168.1.111
+Host is up (0.097s latency).
+Nmap scan report for 192.168.1.112
+Host is up (0.097s latency).
+Nmap scan report for 192.168.1.113
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.114
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.115
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.116
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.117
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.118
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.119
+Host is up (0.097s latency).
+Nmap scan report for 192.168.1.120
+Host is up (0.097s latency).
+Nmap scan report for 192.168.1.121
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.122
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.123
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.124
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.125
+Host is up (0.086s latency).
+Nmap scan report for 192.168.1.126
+Host is up (0.086s latency).
+Nmap scan report for 192.168.1.127
+Host is up (0.084s latency).
+Nmap scan report for 192.168.1.128
+Host is up (0.083s latency).
+Nmap scan report for 192.168.1.129
+Host is up (0.063s latency).
+Nmap scan report for 192.168.1.130
+Host is up (0.063s latency).
+Nmap scan report for 192.168.1.131
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.132
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.133
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.134
+Host is up (0.15s latency).
+Nmap scan report for 192.168.1.135
+Host is up (0.15s latency).
+Nmap scan report for 192.168.1.136
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.137
+Host is up (0.089s latency).
+Nmap scan report for 192.168.1.138
+Host is up (0.089s latency).
+Nmap scan report for 192.168.1.139
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.140
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.141
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.142
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.143
+Host is up (0.076s latency).
+Nmap scan report for 192.168.1.144
+Host is up (0.076s latency).
+Nmap scan report for 192.168.1.145
+Host is up (0.076s latency).
+Nmap scan report for 192.168.1.146
+Host is up (0.081s latency).
+Nmap scan report for 192.168.1.147
+Host is up (0.081s latency).
+Nmap scan report for 192.168.1.148
+Host is up (0.41s latency).
+Nmap scan report for 192.168.1.149
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.150
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.151
+Host is up (0.12s latency).
+Nmap scan report for 192.168.1.152
+Host is up (0.12s latency).
+Nmap scan report for 192.168.1.153
+Host is up (0.12s latency).
+Nmap scan report for 192.168.1.154
+Host is up (0.12s latency).
+Nmap scan report for 192.168.1.155
+Host is up (0.096s latency).
+Nmap scan report for 192.168.1.156
+Host is up (0.12s latency).
+Nmap scan report for 192.168.1.157
+Host is up (0.12s latency).
+Nmap scan report for 192.168.1.158
+Host is up (0.12s latency).
+Nmap scan report for 192.168.1.159
+Host is up (0.13s latency).
+Nmap scan report for 192.168.1.160
+Host is up (0.12s latency).
+Nmap scan report for 192.168.1.161
+Host is up (0.095s latency).
+Nmap scan report for 192.168.1.162
+Host is up (0.12s latency).
+Nmap scan report for 192.168.1.163
+Host is up (0.12s latency).
+Nmap scan report for 192.168.1.164
+Host is up (0.095s latency).
+Nmap scan report for 192.168.1.165
+Host is up (0.095s latency).
+Nmap scan report for 192.168.1.166
+Host is up (0.12s latency).
+Nmap scan report for 192.168.1.167
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.168
+Host is up (0.095s latency).
+Nmap scan report for 192.168.1.169
+Host is up (0.16s latency).
+Nmap scan report for 192.168.1.170
+Host is up (0.10s latency).
+Nmap scan report for 192.168.1.171
+Host is up (0.10s latency).
+Nmap scan report for 192.168.1.172
+Host is up (0.16s latency).
+Nmap scan report for 192.168.1.173
+Host is up (0.10s latency).
+Nmap scan report for 192.168.1.174
+Host is up (0.11s latency).
+Nmap scan report for 192.168.1.175
+Host is up (0.16s latency).
+Nmap scan report for 192.168.1.176
+Host is up (0.16s latency).
+Nmap scan report for 192.168.1.177
+Host is up (0.089s latency).
+Nmap scan report for 192.168.1.178
+Host is up (0.089s latency).
+Nmap scan report for 192.168.1.179
+Host is up (0.089s latency).
+Nmap scan report for 192.168.1.180
+Host is up (0.089s latency).
+Nmap scan report for 192.168.1.181
+Host is up (0.089s latency).
+Nmap scan report for 192.168.1.182
+Host is up (0.089s latency).
+Nmap scan report for 192.168.1.183
+Host is up (0.095s latency).
+Nmap scan report for 192.168.1.184
+Host is up (0.071s latency).
+Nmap scan report for 192.168.1.185
+Host is up (0.089s latency).
+Nmap scan report for 192.168.1.186
+Host is up (0.071s latency).
+Nmap scan report for 192.168.1.187
+Host is up (0.089s latency).
+Nmap scan report for 192.168.1.188
+Host is up (0.18s latency).
+Nmap scan report for 192.168.1.189
+Host is up (0.089s latency).
+Nmap scan report for 192.168.1.190
+Host is up (0.22s latency).
+Nmap scan report for 192.168.1.191
+Host is up (0.22s latency).
+Nmap scan report for 192.168.1.192
+Host is up (0.089s latency).
+Nmap scan report for 192.168.1.193
+Host is up (0.17s latency).
+Nmap scan report for 192.168.1.194
+Host is up (0.17s latency).
+Nmap scan report for 192.168.1.195
+Host is up (0.089s latency).
+Nmap scan report for 192.168.1.196
+Host is up (0.089s latency).
+Nmap scan report for 192.168.1.197
+Host is up (0.089s latency).
+Nmap scan report for 192.168.1.198
+Host is up (0.071s latency).
+Nmap scan report for 192.168.1.199
+Host is up (0.12s latency).
+Nmap scan report for 192.168.1.200
+Host is up (0.089s latency).
+Nmap scan report for 192.168.1.201
+Host is up (0.082s latency).
+Nmap scan report for 192.168.1.202
+Host is up (0.095s latency).
+Nmap scan report for 192.168.1.203
+Host is up (0.078s latency).
+Nmap scan report for 192.168.1.204
+Host is up (0.078s latency).
+Nmap scan report for 192.168.1.205
+Host is up (0.078s latency).
+Nmap scan report for 192.168.1.206
+Host is up (0.078s latency).
+Nmap scan report for 192.168.1.207
+Host is up (0.17s latency).
+Nmap scan report for 192.168.1.208
+Host is up (0.17s latency).
+Nmap scan report for 192.168.1.209
+Host is up (0.085s latency).
+Nmap scan report for 192.168.1.210
+Host is up (0.085s latency).
+Nmap scan report for 192.168.1.211
+Host is up (0.085s latency).
+Nmap scan report for 192.168.1.212
+Host is up (0.085s latency).
+Nmap scan report for 192.168.1.213
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.214
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.215
+Host is up (0.067s latency).
+Nmap scan report for 192.168.1.216
+Host is up (0.067s latency).
+Nmap scan report for 192.168.1.217
+Host is up (0.086s latency).
+Nmap scan report for 192.168.1.218
+Host is up (0.10s latency).
+Nmap scan report for 192.168.1.219
+Host is up (0.10s latency).
+Nmap scan report for 192.168.1.220
+Host is up (0.086s latency).
+Nmap scan report for 192.168.1.221
+Host is up (0.066s latency).
+Nmap scan report for 192.168.1.222
+Host is up (0.066s latency).
+Nmap scan report for 192.168.1.223
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.224
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.225
+Host is up (0.066s latency).
+Nmap scan report for 192.168.1.226
+Host is up (0.066s latency).
+Nmap scan report for 192.168.1.227
+Host is up (0.066s latency).
+Nmap scan report for 192.168.1.228
+Host is up (0.092s latency).
+Nmap scan report for 192.168.1.229
+Host is up (0.066s latency).
+Nmap scan report for 192.168.1.230
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.231
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.232
+Host is up (0.066s latency).
+Nmap scan report for 192.168.1.233
+Host is up (0.094s latency).
+Nmap scan report for 192.168.1.234
+Host is up (0.066s latency).
+Nmap scan report for 192.168.1.235
+Host is up (0.091s latency).
+Nmap scan report for 192.168.1.236
+Host is up (0.091s latency).
+Nmap scan report for 192.168.1.237
+Host is up (0.074s latency).
+Nmap scan report for 192.168.1.238
+Host is up (0.089s latency).
+Nmap scan report for 192.168.1.239
+Host is up (0.074s latency).
+Nmap scan report for 192.168.1.240
+Host is up (0.22s latency).
+Nmap scan report for 192.168.1.241
+Host is up (0.22s latency).
+Nmap scan report for 192.168.1.242
+Host is up (0.074s latency).
+Nmap scan report for 192.168.1.243
+Host is up (0.074s latency).
+Nmap scan report for 192.168.1.244
+Host is up (0.074s latency).
+Nmap scan report for 192.168.1.245
+Host is up (0.094s latency).
+Nmap scan report for 192.168.1.246
+Host is up (0.074s latency).
+Nmap scan report for 192.168.1.247
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.248
+Host is up (0.21s latency).
+Nmap scan report for 192.168.1.249
+Host is up (0.074s latency).
+Nmap scan report for 192.168.1.250
+Host is up (0.074s latency).
+Nmap scan report for 192.168.1.251
+Host is up (0.15s latency).
+Nmap scan report for 192.168.1.252
+Host is up (0.090s latency).
+Nmap scan report for 192.168.1.253
+Host is up (0.12s latency).
+Nmap scan report for 192.168.1.254
+Host is up (0.080s latency).
+Nmap scan report for 192.168.1.255
+Host is up (0.092s latency).
+Nmap done: 256 IP addresses (256 hosts up) scanned in 65.94 seconds
+
+[2026-02-07 14:21:25] Executing: nmap --script auth,default,discovery 127.0.0.1
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-02-07 14:21 +0530
+NSOCK ERROR [0.1620s] nsock_pcap_open(): pcap_activate(anpi1) WARNING: BIOCPROMISC: Operation not supported on socket.
+No profinet devices in the subnet
+Pre-scan script results:
+|_broadcast-eigrp-discovery: ERROR: Script execution failed (use -d to debug)
+|_hostmap-robtex: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+| targets-asn: 
+|_  targets-asn.asn is a mandatory parameter
+|_knx-gateway-discover: ERROR: Script execution failed (use -d to debug)
+|_targets-sniffer: Sniffed 0 address(es). 
+| targets-ipv6-multicast-mld: 
+|   IP: fe80::53c6:fb2f:eb39:1384  MAC: e0:2b:e9:7c:5e:de  IFACE: en1
+| 
+|_  Use --script-args=newtargets to add the results as targets
+| ipv6-multicast-mld-list: 
+|   fe80::53c6:fb2f:eb39:1384: 
+|     device: en1
+|     mac: e0:2b:e9:7c:5e:de
+|     multicast_ips: 
+|_      ff02::fb                  (mDNSv6)
+|_broadcast-ospf2-discover: ERROR: Script execution failed (use -d to debug)
+|_broadcast-pim-discovery: ERROR: Script execution failed (use -d to debug)
+| targets-ipv6-multicast-invalid-dst: 
+|   IP: 2409:40c2:10b:c03f::13     MAC: f2:9f:77:28:36:ec  IFACE: en1
+|   IP: fe80::f09f:77ff:fe28:36ec  MAC: f2:9f:77:28:36:ec  IFACE: en1
+|_  Use --script-args=newtargets to add the results as targets
+| targets-ipv6-multicast-echo: 
+|   IP: fe80::f09f:77ff:fe28:36ec  MAC: f2:9f:77:28:36:ec  IFACE: en1
+|   IP: 2409:40c2:10b:c03f::13     MAC: f2:9f:77:28:36:ec  IFACE: en1
+|_  Use --script-args=newtargets to add the results as targets
+Bug in lltd-discovery: no string output.
+|_mrinfo: ERROR: Script execution failed (use -d to debug)
+|_broadcast-igmp-discovery: ERROR: Script execution failed (use -d to debug)
+|_http-robtex-shared-ns: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+
+[2026-02-07 14:21:36] Executing: nmap -sA -T4 127.0.0.1
+Starting Nmap 7.98 ( https://nmap.org ) at 2026-02-07 14:21 +0530
+Nmap scan report for localhost (127.0.0.1)
+Host is up (0.000085s latency).
+All 1000 scanned ports on localhost (127.0.0.1) are in ignored states.
+Not shown: 1000 unfiltered tcp ports (reset)
+
+Nmap done: 1 IP address (1 host up) scanned in 0.02 seconds
+
+[2026-02-07 14:21:36] Executing: pwpolicy getaccountpolicies 2>/dev/null || echo 'Policy not accessible'
+Getting global account policies
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>policyCategoryPasswordContent</key>
+	<array>
+		<dict>
+			<key>policyContent</key>
+			<string>policyAttributePassword matches '.{4,}+'</string>
+			<key>policyContentDescription</key>
+			<dict>
+				<key>ar</key>
+				<string>أدخل كلمة سر لا تقل عن أربعة أحرف أو رموز.</string>
+				<key>ca</key>
+				<string>Introdueix una contrasenya que tingui quatre caràcters o més.</string>
+				<key>cs</key>
+				<string>Zadejte heslo o minimální délce čtyři znaky.</string>
+				<key>da</key>
+				<string>Skriv en adgangskode på mindst fire tegn.</string>
+				<key>de</key>
+				<string>Gib ein Passwort ein, das aus mindestens vier Zeichen besteht.</string>
+				<key>el</key>
+				<string>Εισαγάγετε ένα συνθηματικό που περιέχει τέσσερις ή περισσότερους χαρακτήρες.</string>
+				<key>en</key>
+				<string>Enter a password that is four characters or more.</string>
+				<key>en_AU</key>
+				<string>Enter a password that is four characters or more.</string>
+				<key>en_GB</key>
+				<string>Enter a password that is four characters or more.</string>
+				<key>es</key>
+				<string>Introduce una contraseña que tenga como mínimo cuatro caracteres.</string>
+				<key>es_419</key>
+				<string>Ingresa una contraseña de cuatro caracteres o más.</string>
+				<key>fi</key>
+				<string>Kirjoita salasana, jossa on vähintään neljä merkkiä.</string>
+				<key>fr</key>
+				<string>Saisissez un mot de passe comportant au moins quatre caractères.</string>
+				<key>fr_CA</key>
+				<string>Saisissez un mot de passe comportant au moins quatre caractères.</string>
+				<key>he</key>
+				<string>יש להזין סיסמה בת ארבעה תווים או יותר.</string>
+				<key>hi</key>
+				<string>चार वर्णों वाला या उससे बड़ा पासवर्ड दर्ज करें।</string>
+				<key>hr</key>
+				<string>Unesite lozinku od četiri ili više znakova.</string>
+				<key>hu</key>
+				<string>Adjon meg egy legalább négy karakterből álló jelszót.</string>
+				<key>id</key>
+				<string>Masukkan kata sandi yang terdiri dari empat karakter atau lebih.</string>
+				<key>it</key>
+				<string>Inserisci una password di quattro o più caratteri.</string>
+				<key>ja</key>
+				<string>4文字以上のパスワードを入力してください。</string>
+				<key>ko</key>
+				<string>4자 이상의 암호를 입력하십시오.</string>
+				<key>ms</key>
+				<string>Masukkan kata laluan yang mengandungi empat atau lebih aksara.</string>
+				<key>nl</key>
+				<string>Voer een wachtwoord van vier of meer tekens in.</string>
+				<key>no</key>
+				<string>Angi et passord på minst fire tegn.</string>
+				<key>pl</key>
+				<string>Podaj hasło składające się z co najmniej czterech znaków.</string>
+				<key>pt_BR</key>
+				<string>Digite uma senha com quatro ou mais caracteres.</string>
+				<key>pt_PT</key>
+				<string>Digite uma palavra‑passe com pelo menos quatro caracteres.</string>
+				<key>ro</key>
+				<string>Introduceți o parolă de minimum patru caractere.</string>
+				<key>ru</key>
+				<string>Введите пароль, состоящий из четырех или более символов.</string>
+				<key>sk</key>
+				<string>Zadajte heslo obsahujúce najmenej štyri znaky.</string>
+				<key>sl</key>
+				<string>Vnesite geslo, ki vsebuje štiri znake ali več.</string>
+				<key>sv</key>
+				<string>Ange ett lösenord som är minst fyra tecken långt.</string>
+				<key>th</key>
+				<string>ป้อนรหัสผ่านที่มีอักขระอย่างน้อยสี่ตัว</string>
+				<key>tr</key>
+				<string>En az dört karakter uzunluğunda bir parola girin.</string>
+				<key>uk</key>
+				<string>Введіть пароль зі щонайменше чотирьох символів.</string>
+				<key>vi</key>
+				<string>Nhập mật khẩu dài 4 ký tự trở lên.</string>
+				<key>zh_CN</key>
+				<string>输入不少于4个字符的密码。</string>
+				<key>zh_HK</key>
+				<string>輸入一個四位或更多字元的密碼。</string>
+				<key>zh_TW</key>
+				<string>輸入4個字元或更長的密碼。</string>
+			</dict>
+			<key>policyIdentifier</key>
+			<string>com.apple.defaultpasswordpolicy.fde</string>
+		</dict>
+	</array>
+</dict>
+</plist>
+
+
+[2026-02-07 14:21:36] Executing: dscl . -list /Users | grep -v "_"
+daemon
+nobody
+root
+yash
+
+[2026-02-07 14:21:36] Executing: sudo lsof -iTCP -sTCP:LISTEN
+COMMAND     PID      USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+symptomsd   487 _networkd   20u  IPv6 0xe4042846288d2861      0t0  TCP *:61202 (LISTEN)
+mysqld      501    _mysql   19u  IPv6 0x707c57ddb86bef5a      0t0  TCP *:33060 (LISTEN)
+mysqld      501    _mysql   21u  IPv6 0x8185e2db0cd9315e      0t0  TCP *:mysql (LISTEN)
+rapportd    651      yash    3u  IPv4 0xbf721889dab2e1b8      0t0  TCP *:57911 (LISTEN)
+rapportd    651      yash    4u  IPv6  0xaa2a01d3f918112      0t0  TCP *:57911 (LISTEN)
+ControlCe 28203      yash    9u  IPv4 0x98546489e85fc564      0t0  TCP *:afs3-fileserver (LISTEN)
+ControlCe 28203      yash   10u  IPv6 0x9b5b8cfc4a75d22b      0t0  TCP *:afs3-fileserver (LISTEN)
+ControlCe 28203      yash   11u  IPv4 0x840444601b1e2bcd      0t0  TCP *:commplex-main (LISTEN)
+ControlCe 28203      yash   12u  IPv6 0xfc388bc759628893      0t0  TCP *:commplex-main (LISTEN)
+python3.1 30203      root    6u  IPv4 0xafea4a76becafde9      0t0  TCP *:commplex-link (LISTEN)
+Electron  30714      yash   50u  IPv6 0x2458410c58676a6b      0t0  TCP *:61931 (LISTEN)
+python3.1 30745      root    6u  IPv4 0xafea4a76becafde9      0t0  TCP *:commplex-link (LISTEN)
+python3.1 30745      root    9u  IPv4 0xafea4a76becafde9      0t0  TCP *:commplex-link (LISTEN)
+Antigravi 30758      yash   47u  IPv4 0x25c7afb98243b6c3      0t0  TCP localhost:61940 (LISTEN)
+language_ 30768      yash   22u  IPv4 0xa8a204e488db5029      0t0  TCP localhost:61941 (LISTEN)
+language_ 30768      yash   23u  IPv4 0x375c268e6ea9df09      0t0  TCP localhost:61942 (LISTEN)
+language_ 30768      yash   42u  IPv4 0xd99cfdc55f072064      0t0  TCP localhost:61954 (LISTEN)
+python3.1 31069      yash    3u  IPv4 0x3783433cebd3df71      0t0  TCP *:rfe (LISTEN)
+
+[2026-02-07 14:21:36] Executing: netstat -rn
+Routing tables
+
+Internet:
+Destination        Gateway            Flags               Netif Expire
+default            10.227.161.241     UGScg                 en1       
+10.227.161/24      link#15            UCS                   en1      !
+10.227.161.51/32   link#15            UCS                   en1      !
+10.227.161.51      b6:a0:fb:11:2c:a5  UHLWI                 lo0       
+10.227.161.172     e0:2b:e9:7c:5e:de  UHLWI                 en1      !
+10.227.161.241/32  link#15            UCS                   en1      !
+10.227.161.241     f2:9f:77:28:36:ec  UHLWIir               en1   1187
+10.227.161.255     ff:ff:ff:ff:ff:ff  UHLWbI                en1      !
+127                127.0.0.1          UCS                   lo0       
+127.0.0.1          127.0.0.1          UH                    lo0       
+169.254            link#15            UCS                   en1      !
+224.0.0/4          link#15            UmCS                  en1      !
+224.0.0.251        1:0:5e:0:0:fb      UHmLWI                en1       
+224.0.23.12        1:0:5e:0:17:c      UHmLWI                en1       
+255.255.255.255/32 link#15            UCS                   en1      !
+255.255.255.255    ff:ff:ff:ff:ff:ff  UHLWbI                en1      !
+
+Internet6:
+Destination                             Gateway                                 Flags               Netif Expire
+default                                 fe80::f09f:77ff:fe28:36ec%en1           UGcg                  en1       
+default                                 fe80::%utun0                            UGcIg               utun0       
+default                                 fe80::%utun1                            UGcIg               utun1       
+default                                 fe80::%utun2                            UGcIg               utun2       
+default                                 fe80::%utun3                            UGcIg               utun3       
+::1                                     ::1                                     UHL                   lo0       
+2409:40c2:10b:c03f::/64                 link#15                                 UC                    en1       
+2409:40c2:10b:c03f::13                  f2:9f:77:28:36:ec                       UHLWIi                en1       
+2409:40c2:10b:c03f:ca6:80e:45c:7019     b6:a0:fb:11:2c:a5                       UHL                   lo0       
+2409:40c2:10b:c03f:b4dc:51e6:92e7:bf5d  b6:a0:fb:11:2c:a5                       UHL                   lo0       
+fe80::%lo0/64                           fe80::1%lo0                             UcI                   lo0       
+fe80::1%lo0                             link#1                                  UHLI                  lo0       
+fe80::%en1/64                           link#15                                 UCI                   en1       
+fe80::146b:c9e8:ccf6:b8d9%en1           b6:a0:fb:11:2c:a5                       UHLI                  lo0       
+fe80::f09f:77ff:fe28:36ec%en1           f2:9f:77:28:36:ec                       UHLWIir               en1       
+fe80::%utun0/64                         fe80::67c5:9840:5421:dddc%utun0         UcI                 utun0       
+fe80::67c5:9840:5421:dddc%utun0         link#17                                 UHLI                  lo0       
+fe80::%utun1/64                         fe80::6c5e:15df:f880:866c%utun1         UcI                 utun1       
+fe80::6c5e:15df:f880:866c%utun1         link#18                                 UHLI                  lo0       
+fe80::%utun2/64                         fe80::ce81:b1c:bd2c:69e%utun2           UcI                 utun2       
+fe80::ce81:b1c:bd2c:69e%utun2           link#19                                 UHLI                  lo0       
+fe80::%awdl0/64                         link#20                                 UCI                 awdl0       
+fe80::50f7:98ff:fe73:cc35%awdl0         52:f7:98:73:cc:35                       UHLI                  lo0       
+fe80::50f7:98ff:fe73:cc35%llw0          52:f7:98:73:cc:35                       UHLI                  lo0       
+fe80::%utun3/64                         fe80::57c0:f504:72e5:5848%utun3         UcI                 utun3       
+fe80::57c0:f504:72e5:5848%utun3         link#22                                 UHLI                  lo0       
+ff00::/8                                ::1                                     UmCI                  lo0       
+ff00::/8                                link#7                                  UmCI                  en0       
+ff00::/8                                link#15                                 UmCI                  en1       
+ff00::/8                                fe80::67c5:9840:5421:dddc%utun0         UmCI                utun0       
+ff00::/8                                fe80::6c5e:15df:f880:866c%utun1         UmCI                utun1       
+ff00::/8                                fe80::ce81:b1c:bd2c:69e%utun2           UmCI                utun2       
+ff00::/8                                link#20                                 UmCI                awdl0       
+ff00::/8                                link#21                                 UmCI                 llw0       
+ff00::/8                                fe80::57c0:f504:72e5:5848%utun3         UmCI                utun3       
+ff01::%lo0/32                           ::1                                     UmCI                  lo0       
+ff01::%en0/32                           link#7                                  UmCI                  en0       
+ff01::%en1/32                           link#15                                 UmCI                  en1       
+ff01::%utun0/32                         fe80::67c5:9840:5421:dddc%utun0         UmCI                utun0       
+ff01::%utun1/32                         fe80::6c5e:15df:f880:866c%utun1         UmCI                utun1       
+ff01::%utun2/32                         fe80::ce81:b1c:bd2c:69e%utun2           UmCI                utun2       
+ff01::%awdl0/32                         link#20                                 UmCI                awdl0       
+ff01::%utun3/32                         fe80::57c0:f504:72e5:5848%utun3         UmCI                utun3       
+ff02::%lo0/32                           ::1                                     UmCI                  lo0       
+ff02::%en0/32                           link#7                                  UmCI                  en0       
+ff02::%en1/32                           link#15                                 UmCI                  en1       
+ff02::%utun0/32                         fe80::67c5:9840:5421:dddc%utun0         UmCI                utun0       
+ff02::%utun1/32                         fe80::6c5e:15df:f880:866c%utun1         UmCI                utun1       
+ff02::%utun2/32                         fe80::ce81:b1c:bd2c:69e%utun2           UmCI                utun2       
+ff02::%awdl0/32                         link#20                                 UmCI                awdl0       
+ff02::%utun3/32                         fe80::57c0:f504:72e5:5848%utun3         UmCI                utun3       
+
+[2026-02-07 14:21:36] Executing: ifconfig
+lo0: flags=8049<UP,LOOPBACK,RUNNING,MULTICAST> mtu 16384
+	options=1203<RXCSUM,TXCSUM,TXSTATUS,SW_TIMESTAMP>
+	inet 127.0.0.1 netmask 0xff000000
+	inet6 ::1 prefixlen 128 
+	inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1 
+	nd6 options=201<PERFORMNUD,DAD>
+gif0: flags=8010<POINTOPOINT,MULTICAST> mtu 1280
+stf0: flags=0<> mtu 1280
+anpi1: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=400<CHANNEL_IO>
+	ether fe:a4:05:a1:18:4e
+	media: none
+	status: inactive
+anpi3: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=400<CHANNEL_IO>
+	ether fe:a4:05:a1:18:50
+	media: none
+	status: inactive
+anpi0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=400<CHANNEL_IO>
+	ether fe:a4:05:a1:18:4d
+	media: none
+	status: inactive
+en0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=50b<RXCSUM,TXCSUM,VLAN_HWTAGGING,AV,CHANNEL_IO>
+	ether 1c:f6:4c:47:be:14
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect (none)
+	status: inactive
+en5: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=400<CHANNEL_IO>
+	ether fe:a4:05:a1:18:2d
+	nd6 options=201<PERFORMNUD,DAD>
+	media: none
+	status: inactive
+en6: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=400<CHANNEL_IO>
+	ether fe:a4:05:a1:18:2e
+	nd6 options=201<PERFORMNUD,DAD>
+	media: none
+	status: inactive
+en7: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=400<CHANNEL_IO>
+	ether fe:a4:05:a1:18:30
+	nd6 options=201<PERFORMNUD,DAD>
+	media: none
+	status: inactive
+en2: flags=8963<UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST> mtu 1500
+	options=460<TSO4,TSO6,CHANNEL_IO>
+	ether 36:f8:ec:0d:55:80
+	media: autoselect <full-duplex>
+	status: inactive
+en3: flags=8963<UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST> mtu 1500
+	options=460<TSO4,TSO6,CHANNEL_IO>
+	ether 36:f8:ec:0d:55:84
+	media: autoselect <full-duplex>
+	status: inactive
+en4: flags=8963<UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST> mtu 1500
+	options=460<TSO4,TSO6,CHANNEL_IO>
+	ether 36:f8:ec:0d:55:8c
+	media: autoselect <full-duplex>
+	status: inactive
+bridge0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=63<RXCSUM,TXCSUM,TSO4,TSO6>
+	ether 36:f8:ec:0d:55:80
+	Configuration:
+		id 0:0:0:0:0:0 priority 0 hellotime 0 fwddelay 0
+		maxage 0 holdcnt 0 proto stp maxaddr 100 timeout 1200
+		root id 0:0:0:0:0:0 priority 0 ifcost 0 port 0
+		ipfilter disabled flags 0x0
+	member: en2 flags=3<LEARNING,DISCOVER>
+	        ifmaxaddr 0 port 11 priority 0 path cost 0
+	member: en3 flags=3<LEARNING,DISCOVER>
+	        ifmaxaddr 0 port 12 priority 0 path cost 0
+	member: en4 flags=3<LEARNING,DISCOVER>
+	        ifmaxaddr 0 port 13 priority 0 path cost 0
+	nd6 options=201<PERFORMNUD,DAD>
+	media: <unknown type>
+	status: inactive
+utun0: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1380
+	inet6 fe80::67c5:9840:5421:dddc%utun0 prefixlen 64 scopeid 0x11 
+	nd6 options=201<PERFORMNUD,DAD>
+utun1: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 2000
+	inet6 fe80::6c5e:15df:f880:866c%utun1 prefixlen 64 scopeid 0x12 
+	nd6 options=201<PERFORMNUD,DAD>
+utun2: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1000
+	inet6 fe80::ce81:b1c:bd2c:69e%utun2 prefixlen 64 scopeid 0x13 
+	nd6 options=201<PERFORMNUD,DAD>
+ap1: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=6460<TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM>
+	ether e2:14:c6:90:42:c5
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect (none)
+	status: inactive
+en1: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=6460<TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM>
+	ether b6:a0:fb:11:2c:a5
+	inet6 fe80::146b:c9e8:ccf6:b8d9%en1 prefixlen 64 secured scopeid 0xf 
+	inet6 2409:40c2:10b:c03f:ca6:80e:45c:7019 prefixlen 64 autoconf secured 
+	inet6 2409:40c2:10b:c03f:b4dc:51e6:92e7:bf5d prefixlen 64 autoconf temporary 
+	inet 10.227.161.51 netmask 0xffffff00 broadcast 10.227.161.255
+	nat64 prefix 64:ff9b:: prefixlen 96
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect
+	status: active
+awdl0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=6460<TSO4,TSO6,CHANNEL_IO,PARTIAL_CSUM,ZEROINVERT_CSUM>
+	ether 52:f7:98:73:cc:35
+	inet6 fe80::50f7:98ff:fe73:cc35%awdl0 prefixlen 64 scopeid 0x14 
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect
+	status: active
+llw0: flags=8863<UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST> mtu 1500
+	options=400<CHANNEL_IO>
+	ether 52:f7:98:73:cc:35
+	inet6 fe80::50f7:98ff:fe73:cc35%llw0 prefixlen 64 scopeid 0x15 
+	nd6 options=201<PERFORMNUD,DAD>
+	media: autoselect (none)
+utun3: flags=8051<UP,POINTOPOINT,RUNNING,MULTICAST> mtu 1500
+	inet6 fe80::57c0:f504:72e5:5848%utun3 prefixlen 64 scopeid 0x16 
+	nd6 options=201<PERFORMNUD,DAD>
