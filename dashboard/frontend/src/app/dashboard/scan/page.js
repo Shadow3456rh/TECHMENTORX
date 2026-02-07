@@ -1,6 +1,32 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import Script from 'next/script';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+    Chart as ChartJS,
+    ArcElement,
+    Tooltip,
+    Legend,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title
+} from 'chart.js';
+import { Doughnut, Bar } from 'react-chartjs-2';
+
+// Register ChartJS components
+ChartJS.register(
+    ArcElement,
+    Tooltip,
+    Legend,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title
+);
 
 export default function SecOpsTerminal() {
     // State
@@ -26,7 +52,7 @@ export default function SecOpsTerminal() {
         http: 0,
     });
 
-    // Checkbox State (using a Map or Object to track checked state)
+    // Checkbox State
     const [options, setOptions] = useState({
         host_discovery: true,
         os_detect: true,
@@ -49,6 +75,14 @@ export default function SecOpsTerminal() {
         listening_services: true,
         firewall: true
     });
+
+    // Report & AI State
+    const [showReport, setShowReport] = useState(false);
+    const [summary, setSummary] = useState("");
+    const [isSummarizing, setIsSummarizing] = useState(false);
+
+    // We need a ref for the report container to capture it for PDF
+    const reportRef = useRef(null);
 
     const optionTimes = {
         host_discovery: 15,
@@ -75,62 +109,8 @@ export default function SecOpsTerminal() {
 
     // Refs
     const terminalRef = useRef(null);
-    const pieChartRef = useRef(null);
-    const barChartRef = useRef(null);
-    const pieChartInstance = useRef(null);
-    const barChartInstance = useRef(null);
+    // Use a mutable ref for log data to avoid re-renders on every char, separate from terminalOutput
     const globalLogData = useRef("");
-
-    // Initialize Charts
-    const initCharts = () => {
-        if (!window.Chart) return;
-
-        // Destroy existing if any
-        if (pieChartInstance.current) pieChartInstance.current.destroy();
-        if (barChartInstance.current) barChartInstance.current.destroy();
-
-        const ctxPie = pieChartRef.current.getContext('2d');
-        const ctxBar = barChartRef.current.getContext('2d');
-
-        window.Chart.defaults.color = '#888';
-        window.Chart.defaults.borderColor = '#333';
-
-        pieChartInstance.current = new window.Chart(ctxPie, {
-            type: 'doughnut',
-            data: {
-                labels: ['Info', 'Open Ports', 'Warnings', 'Critical'],
-                datasets: [{
-                    data: [0, 0, 0, 0],
-                    backgroundColor: ['#2196f3', '#4caf50', '#ff9800', '#f44336'],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { position: 'bottom', labels: { boxWidth: 10 } } }
-            }
-        });
-
-        barChartInstance.current = new window.Chart(ctxBar, {
-            type: 'bar',
-            data: {
-                labels: ['TCP', 'UDP', 'Services', 'Web'],
-                datasets: [{
-                    label: 'Detections',
-                    data: [0, 0, 0, 0],
-                    backgroundColor: '#00ff00',
-                    barThickness: 20
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: { y: { beginAtZero: true } },
-                plugins: { legend: { display: false } }
-            }
-        });
-    };
 
     // Estimate Time Effect
     useEffect(() => {
@@ -190,24 +170,6 @@ export default function SecOpsTerminal() {
             udp: prev.udp + udp,
             http: prev.http + http
         }));
-
-        if (pieChartInstance.current) {
-            const ds = pieChartInstance.current.data.datasets[0];
-            ds.data[0] += info;
-            ds.data[1] += openPorts;
-            ds.data[2] += warnings;
-            ds.data[3] += vulns;
-            pieChartInstance.current.update();
-        }
-
-        if (barChartInstance.current) {
-            const ds = barChartInstance.current.data.datasets[0];
-            ds.data[0] += tcp;
-            ds.data[1] += udp;
-            ds.data[2] += openPorts;
-            ds.data[3] += http;
-            barChartInstance.current.update();
-        }
     };
 
     const startScan = async () => {
@@ -218,14 +180,8 @@ export default function SecOpsTerminal() {
 
         // Reset
         setMetrics({ ports: 0, vulns: 0, info: 0, warnings: 0, tcp: 0, udp: 0, http: 0 });
-        if (pieChartInstance.current) {
-            pieChartInstance.current.data.datasets[0].data = [0, 0, 0, 0];
-            pieChartInstance.current.update();
-        }
-        if (barChartInstance.current) {
-            barChartInstance.current.data.datasets[0].data = [0, 0, 0, 0];
-            barChartInstance.current.update();
-        }
+        setSummary("");
+        setShowReport(false);
         globalLogData.current = "";
         setTerminalOutput([]);
         setIsScanning(true);
@@ -269,6 +225,11 @@ export default function SecOpsTerminal() {
                 }
             }
 
+            // Auto-show report on completion
+            setTimeout(() => {
+                setShowReport(true);
+            }, 1500);
+
         } catch (err) {
             setTerminalOutput(prev => [...prev, `\n[!] ERROR: ${err.message}`]);
         } finally {
@@ -292,23 +253,125 @@ export default function SecOpsTerminal() {
         }
     };
 
-    const downloadReport = () => {
-        const blob = new Blob([globalLogData.current], { type: 'text/plain' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `security_report_${new Date().toISOString().slice(0, 19)}.txt`;
-        a.click();
+    // AI Summarization
+    const generateSummary = async () => {
+        if (!globalLogData.current) return;
+        setIsSummarizing(true);
+        try {
+            const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY || "AIzaSyBz5HIGXv6wQAjC_NTcFEHQ47EDoUnUIeM");
+            // Using gemini-1.5-flash for speed and cost effectiveness, or fallback to pro
+            const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+            const prompt = `
+                You are a cybersecurity expert analyzing a Nmap/scan report. 
+                Please provide a concise, professional executive summary of the following scan log data.
+                Highlight critical vulnerabilities, open ports, and potential risks.
+                Suggest top 3 specific remediation steps.
+                Format the output as Markdown.
+                
+                LOG DATA:
+                ${globalLogData.current.substring(0, 30000)} // Limit context window to avoid token limits
+            `;
+
+            const result = await model.generateContent(prompt);
+            const response = await result.response;
+            setSummary(response.text());
+        } catch (error) {
+            console.error("AI Summary failed:", error);
+            // Fallback to pro if flash fails or model name issue
+            try {
+                const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_GEMINI_API_KEY || "AIzaSyBz5HIGXv6wQAjC_NTcFEHQ47EDoUnUIeM");
+                const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+                const result = await model.generateContent(prompt);
+                const response = await result.response;
+                setSummary(response.text());
+            } catch (retryError) {
+                setSummary("Failed to generate summary. Please check API key or connectivity.");
+            }
+        } finally {
+            setIsSummarizing(false);
+        }
+    };
+
+    // Export PDF
+    const exportReport = async () => {
+        if (!reportRef.current) return;
+
+        try {
+            // Hide buttons for screenshot
+            const buttons = document.querySelector('.report-actions');
+            if (buttons) buttons.style.display = 'none';
+
+            const element = reportRef.current;
+            const canvas = await html2canvas(element, {
+                backgroundColor: "#0d0d0d",
+                scale: 2 // Improve quality
+            });
+
+            // Restore buttons
+            if (buttons) buttons.style.display = 'flex';
+
+            const imgData = canvas.toDataURL('image/png');
+
+            const pdf = new jsPDF('p', 'mm', 'a4');
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+            pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+            pdf.save(`sec-ops-report-${new Date().toISOString().slice(0, 10)}.pdf`);
+        } catch (err) {
+            console.error("Export failed:", err);
+            const buttons = document.querySelector('.report-actions');
+            if (buttons) buttons.style.display = 'flex';
+            alert("Export failed. See console.");
+        }
+    };
+
+    // Chart Data Configs
+    const doughnutData = {
+        labels: ['Info', 'Open Ports', 'Warnings', 'Critical'],
+        datasets: [{
+            data: [metrics.info, metrics.ports, metrics.warnings, metrics.vulns],
+            backgroundColor: ['#2196f3', '#4caf50', '#ff9800', '#f44336'],
+            borderWidth: 0,
+            hoverOffset: 4
+        }]
+    };
+
+    const barData = {
+        labels: ['TCP', 'UDP', 'Services', 'Web'],
+        datasets: [{
+            label: 'Detections',
+            data: [metrics.tcp, metrics.udp, metrics.ports + metrics.info, metrics.http],
+            backgroundColor: '#00ff00',
+            barThickness: 20
+        }]
+    };
+
+    const chartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { position: 'bottom', labels: { color: '#888', boxWidth: 10 } },
+            title: { display: false }
+        },
+        scales: {
+            x: { ticks: { color: '#888' }, grid: { color: '#333' } },
+            y: { ticks: { color: '#888' }, grid: { color: '#333' } }
+        }
+    };
+
+    const doughnutOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '70%',
+        plugins: {
+            legend: { position: 'right', labels: { color: '#888', boxWidth: 10 } }
+        }
     };
 
     return (
         <div className="sec-ops-wrapper">
-            <Script
-                src="https://cdn.jsdelivr.net/npm/chart.js"
-                strategy="afterInteractive"
-                onLoad={() => initCharts()}
-            />
-
             <style jsx global>{`
                 :root {
                     --bg-color: #0d0d0d;
@@ -332,6 +395,8 @@ export default function SecOpsTerminal() {
                     height: 100vh;
                     box-sizing: border-box;
                     width: 100%;
+                    overflow: hidden; 
+                    position: relative;
                 }
 
                 /* Scrollbar Styling */
@@ -340,22 +405,12 @@ export default function SecOpsTerminal() {
                 .sec-ops-wrapper ::-webkit-scrollbar-thumb { background: var(--dim-text); border-radius: 4px; }
                 .sec-ops-wrapper ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
-                .sec-ops-title {
-                    text-align: center;
-                    border-bottom: 1px solid var(--accent);
-                    padding-bottom: 10px;
-                    text-transform: uppercase;
-                    letter-spacing: 2px;
-                    margin-top: 0;
-                    text-shadow: 0 0 10px var(--accent);
-                    font-size: 1.5rem;
-                }
-
                 .main-layout {
                     display: flex;
                     flex: 1;
                     gap: 20px;
                     overflow: hidden;
+                    position: relative;
                 }
 
                 .controls {
@@ -445,6 +500,7 @@ export default function SecOpsTerminal() {
                     padding: 10px;
                     border-radius: 4px;
                     min-height: 200px;
+                    position: relative;
                 }
 
                 .dash-header {
@@ -521,6 +577,7 @@ export default function SecOpsTerminal() {
                     padding: 4px 8px;
                     font-size: 0.7rem;
                     cursor: pointer;
+                    transition: all 0.2s;
                 }
                 .btn-small:hover { border-color: var(--accent); color: var(--accent); }
 
@@ -589,7 +646,144 @@ export default function SecOpsTerminal() {
                 }
                 .metric-value { font-size: 1.5em; color: #fff; }
                 .metric-label { font-size: 0.7em; color: #888; text-transform: uppercase; }
+
+                /* Report Overlay Styles */
+                .report-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(13, 13, 13, 0.95);
+                    backdrop-filter: blur(10px);
+                    z-index: 100;
+                    display: flex;
+                    flex-direction: column;
+                    padding: 40px;
+                    box-sizing: border-box;
+                    overflow-y: auto;
+                }
+                
+                .report-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    border-bottom: 1px solid var(--accent);
+                    padding-bottom: 20px;
+                    margin-bottom: 30px;
+                }
+                
+                .report-title {
+                    font-size: 2.2rem;
+                    color: var(--accent);
+                    text-transform: uppercase;
+                    letter-spacing: 2px;
+                    font-weight: bold;
+                }
+
+                .report-actions {
+                    display: flex;
+                    gap: 15px;
+                }
+
+                .action-btn {
+                    background: var(--panel-bg);
+                    border: 1px solid var(--dim-text);
+                    color: var(--text-color);
+                    padding: 12px 20px;
+                    cursor: pointer;
+                    font-family: var(--font-main);
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    transition: all 0.3s;
+                    font-size: 0.9rem;
+                }
+                .action-btn:hover {
+                    background: var(--dim-text);
+                    color: #000;
+                    border-color: var(--accent);
+                    box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+                }
+                .action-btn:disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                }
+                .action-btn.primary {
+                    background: var(--dim-text);
+                    color: #000;
+                }
+                .action-btn.primary:hover {
+                    background: var(--accent);
+                }
+
+                .report-grid {
+                    display: grid;
+                    grid-template-columns: 3fr 2fr;
+                    gap: 30px;
+                    flex: 1;
+                    padding-bottom: 50px;
+                }
+                
+                .report-column {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 30px;
+                }
+
+                .report-card {
+                    background: #111;
+                    border: 1px solid var(--border-color);
+                    padding: 25px;
+                    border-radius: 6px;
+                    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+                }
+                
+                .card-title {
+                    color: #fff;
+                    border-bottom: 1px solid #333;
+                    padding-bottom: 15px;
+                    margin-bottom: 20px;
+                    font-size: 1.2em;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                }
+
+                .summary-content {
+                    white-space: pre-wrap;
+                    line-height: 1.6;
+                    color: #ccc;
+                    font-size: 1rem;
+                    font-family: sans-serif; /* Readable font for summary */
+                }
+                
+                .ai-loading {
+                    color: var(--warning);
+                    font-style: italic;
+                    animation: pulse 1s infinite;
+                }
+                @keyframes pulse { 50% { opacity: 0.5; } }
+
+                .metric-grid-large {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 15px;
+                }
+                
+                .metric-card-large {
+                    background: #000;
+                    padding: 20px;
+                    border: 1px solid #333;
+                    text-align: center;
+                    border-radius: 4px;
+                }
+                .metric-val-large { font-size: 2.5em; font-weight: bold; color: #fff; }
+                .metric-lbl-large { color: #888; text-transform: uppercase; font-size: 0.8em; margin-top: 5px; }
+
             `}</style>
+
             <div className="main-layout">
                 {/* LEFT CONTROL PANEL */}
                 <div className="controls">
@@ -644,6 +838,10 @@ export default function SecOpsTerminal() {
                     </div>
 
                     <button className="run-btn" onClick={startScan} disabled={isScanning}>INITIATE SCAN</button>
+
+                    {metrics.ports > 0 && !isScanning && (
+                        <button className="run-btn" style={{ marginTop: '10px', background: '#333', color: '#fff' }} onClick={() => setShowReport(true)}>VIEW REPORT</button>
+                    )}
                 </div>
 
                 {/* MIDDLE TERMINAL PANEL */}
@@ -653,14 +851,12 @@ export default function SecOpsTerminal() {
                             <span className={`status-badge ${isScanning ? 'active' : ''}`} style={isScanning ? { background: 'var(--accent)', color: 'black' } : {}}>{status}</span>
                             <span style={{ fontSize: '0.8em', color: '#888', marginLeft: '10px' }}>{currentTask}</span>
                         </div>
-                        <button className="btn-small" onClick={downloadReport} disabled={!globalLogData.current}>DOWNLOAD REPORT</button>
                     </div>
 
                     <div className="terminal" ref={terminalRef}>
                         {terminalOutput.map((line, i) => (
                             <React.Fragment key={i}>
                                 {line}
-                                {/* Use regex to split lines properly if needed, but standard text mapping works for basic lines. The original code used textContent += text, which handles newlines natively in transparent pre-wrap */}
                             </React.Fragment>
                         ))}
                     </div>
@@ -703,18 +899,138 @@ export default function SecOpsTerminal() {
                     </div>
 
                     <div className="chart-container-wrapper">
-                        <canvas ref={pieChartRef}></canvas>
+                        <Doughnut data={doughnutData} options={doughnutOptions} />
                     </div>
 
                     <div className="chart-container-wrapper">
-                        <canvas ref={barChartRef}></canvas>
+                        <Bar data={barData} options={chartOptions} />
                     </div>
 
                     <div style={{ fontSize: '0.75em', color: '#555', textAlign: 'center', marginTop: 'auto' }}>
-                        SEC-OPS TERMINAL v2.2<br />
+                        SEC-OPS TERMINAL v2.3<br />
                         Local Security Validation
                     </div>
                 </div>
+
+                {/* REPORT OVERLAY */}
+                <AnimatePresence>
+                    {showReport && (
+                        <motion.div
+                            className="report-overlay"
+                            initial={{ opacity: 0, scale: 0.98 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.98 }}
+                        >
+                            <div ref={reportRef} style={{ background: '#0d0d0d', padding: '20px', minHeight: '100%', color: 'white' }}>
+                                <div className="report-header">
+                                    <div>
+                                        <div style={{ fontSize: '0.9rem', color: '#666', marginBottom: '5px' }}>SEC-OPS DIAGNOSTIC REPORT</div>
+                                        <div className="report-title">Security Analysis Result</div>
+                                        <div style={{ fontSize: '1rem', color: '#888', marginTop: '5px' }}>
+                                            Target: <span style={{ color: 'white' }}>{targetIp}</span> | {new Date().toLocaleString()}
+                                        </div>
+                                    </div>
+                                    <div className="report-actions" data-html2canvas-ignore>
+                                        <button className="action-btn" onClick={() => setShowReport(false)}>← Back to Terminal</button>
+                                        <button className="action-btn" onClick={generateSummary} disabled={isSummarizing || !globalLogData.current}>
+                                            {isSummarizing ? "Analyzing..." : " Summarize with AI"}
+                                        </button>
+                                        <button className="action-btn primary" onClick={exportReport}>Export PDF Report</button>
+                                    </div>
+                                </div>
+
+                                <div className="report-grid">
+                                    <div className="report-column">
+                                        <div className="report-card">
+                                            <h3 className="card-title">AI Executive Summary</h3>
+                                            {summary ? (
+                                                <div className="summary-content">{summary}</div>
+                                            ) : (
+                                                <div style={{ color: '#666', padding: '20px', textAlign: 'center', border: '1px dashed #333' }}>
+                                                    {isSummarizing ?
+                                                        <span className="ai-loading">Generating security insights from scan data...</span> :
+                                                        <div>
+                                                            <p>No summary generated yet.</p>
+                                                            <p style={{ fontSize: '0.8rem' }}>Click "Summarize with AI" to analyze the scan logs using Gemini Pro.</p>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div className="report-card" style={{ flex: 1 }}>
+                                            <h3 className="card-title">Network Service Distribution</h3>
+                                            <div style={{ height: '350px' }}>
+                                                <Bar
+                                                    data={barData}
+                                                    options={{
+                                                        ...chartOptions,
+                                                        maintainAspectRatio: false,
+                                                        plugins: {
+                                                            legend: { display: true, position: 'top', labels: { color: '#888' } },
+                                                            title: { display: false }
+                                                        }
+                                                    }}
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="report-column">
+                                        <div className="report-card">
+                                            <h3 className="card-title">Vulnerability Assessment</h3>
+                                            <div style={{ height: '300px', marginBottom: '20px' }}>
+                                                <Doughnut data={doughnutData} options={{
+                                                    ...doughnutOptions,
+                                                    plugins: {
+                                                        legend: { position: 'bottom', labels: { color: '#bbb', padding: 20 } }
+                                                    }
+                                                }} />
+                                            </div>
+
+                                            <div className="metric-grid-large">
+                                                <div className="metric-card-large" style={{ borderColor: '#f44336' }}>
+                                                    <div className="metric-val-large" style={{ color: '#f44336' }}>{metrics.vulns}</div>
+                                                    <div className="metric-lbl-large">Critical Vulns</div>
+                                                </div>
+                                                <div className="metric-card-large" style={{ borderColor: '#ff9800' }}>
+                                                    <div className="metric-val-large" style={{ color: '#ff9800' }}>{metrics.warnings}</div>
+                                                    <div className="metric-lbl-large">Warnings</div>
+                                                </div>
+                                                <div className="metric-card-large" style={{ borderColor: '#4caf50' }}>
+                                                    <div className="metric-val-large" style={{ color: '#4caf50' }}>{metrics.ports}</div>
+                                                    <div className="metric-lbl-large">Open Ports</div>
+                                                </div>
+                                                <div className="metric-card-large" style={{ borderColor: '#2196f3' }}>
+                                                    <div className="metric-val-large" style={{ color: '#2196f3' }}>{metrics.info}</div>
+                                                    <div className="metric-lbl-large">Info Points</div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="report-card">
+                                            <h3 className="card-title">Scan Telemetry</h3>
+                                            <div style={{ fontSize: '0.9rem', color: '#aaa', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #222', paddingBottom: '5px' }}>
+                                                    <span>Status</span> <span style={{ color: '#fff' }}>{status}</span>
+                                                </div>
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #222', paddingBottom: '5px' }}>
+                                                    <span>Scan Duration</span> <span style={{ color: '#fff' }}>{estimatedTime}</span>
+                                                </div>
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #222', paddingBottom: '5px' }}>
+                                                    <span>Active Modules</span> <span style={{ color: '#fff' }}>{Object.keys(options).filter(k => options[k]).length}</span>
+                                                </div>
+                                                <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #222', paddingBottom: '5px' }}>
+                                                    <span>Data Transferred</span> <span style={{ color: '#fff' }}>{globalLogData.current ? (globalLogData.current.length / 1024).toFixed(2) : 0} KB</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     );
