@@ -271,12 +271,29 @@ def check_report_integrity():
         else:
             return jsonify({"valid": False, "error": "No local report found and no file uploaded"}), 404
 
+
     return jsonify({"valid": is_valid, "scan_id": scan_id})
 
 @app.route('/summarize', methods=['POST'])
 def summarize_report():
+    """
+    📝 REAL-TIME AI SUMMARIZATION ENDPOINT
+    
+    This endpoint streams AI-generated summaries in real-time using Ollama's mistral:7b model.
+    The response is sent chunk-by-chunk as the LLM generates tokens, providing instant feedback
+    to the user rather than waiting for the entire response to complete.
+    
+    How it works:
+    1. Client sends POST request with report content
+    2. Server constructs comprehensive prompt with formatting instructions
+    3. Sends to Ollama mistral:7b
+    4. Ollama streams tokens back character-by-character
+    5. Flask streams these tokens to the client via Server-Sent Events (SSE)
+    6. Next.js frontend receives and displays tokens in real-time
+    """
     data = request.json
     report_content = data.get('report', '')
+    
     if not report_content:
         # As a fallback, try reading the last generated file
         if os.path.exists("network_full_security_report.txt"):
@@ -286,28 +303,126 @@ def summarize_report():
              return jsonify({"error": "No report content provided or found locally"}), 400
 
     try:
-        # Construct the prompt
-        prompt = f"Summarize the given Network Penetration testing report. Highlight critical vulnerabilities, open ports, and suggest remediation steps:\n\n{report_content}"
-        
-        # Call Ollama via subprocess
-        # checks if ollama is installed
+        # ✅ Check if Ollama is installed
         if not shutil.which("ollama"):
              return jsonify({"error": "Ollama is not installed or not in PATH. Please install Ollama to use this feature."}), 500
 
-        process = subprocess.Popen(
-            ['ollama', 'run', 'llama3.1:8b'], 
-            stdin=subprocess.PIPE, 
-            stdout=subprocess.PIPE, 
-            stderr=subprocess.PIPE,
-            text=True
+        # 📋 Construct Enhanced AI Prompt with Comprehensive Instructions
+        prompt = f"""You are a senior cybersecurity analyst. Analyze the following Network Penetration Testing Report and provide a comprehensive security assessment.
+
+**CRITICAL FORMATTING RULES:**
+- Add TWO blank lines between major sections
+- Add ONE blank line before and after headings
+- Add ONE blank line before and after lists
+- Each list item must be on its own line
+- Use proper markdown syntax with spacing
+
+**Instructions:**
+1. **Explain ALL data found in the report** - Don't skip any findings
+2. **Identify critical vulnerabilities and security risks**
+3. **Explain HOW TO AVOID each risk** with specific steps
+4. **Provide BEST PRACTICES** for securing the network
+5. **Format your response in clear Markdown** with proper headings and bullet points
+
+**Required Structure (with proper spacing):**
+
+# Executive Summary
+
+[Brief overview of scan results and overall security posture]
+
+
+# Detailed Findings
+
+## 1. Port Scanning Results
+
+[Explain what ports were found and their significance]
+
+## 2. Vulnerabilities Detected
+
+[List and explain each vulnerability with severity level]
+
+## 3. File Permissions & SUID Issues
+
+[If applicable, explain any permission-based risks]
+
+## 4. Active Services & Processes
+
+[Explain running services and potential risks]
+
+
+# Critical Vulnerabilities
+
+[Highlight the most dangerous findings with **bold** emphasis]
+
+
+# Risk Mitigation Strategies
+
+## How to Avoid These Risks:
+
+[Specific steps for each major risk]
+
+
+# Best Practices & Recommendations
+
+[General security recommendations]
+
+---
+
+**NETWORK PENETRATION TESTING REPORT:**
+
+{report_content}"""
+        
+        # 🚀 STREAMING GENERATOR FUNCTION
+        # This function yields data chunk-by-chunk as it's received from Ollama
+        def generate():
+            """
+            Generator function that streams LLM output in real-time.
+            Each chunk is sent to the client immediately as it's generated.
+            """
+            try:
+                # Start Ollama process with mistral:7b model
+                # unbuffered output (-u flag not needed for text=True)
+                process = subprocess.Popen(
+                    ['ollama', 'run', 'mistral:7b'],  # 🔄 Using mistral:7b for better performance
+                    stdin=subprocess.PIPE,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    text=True,
+                    bufsize=1  # Line buffered for immediate output
+                )
+                
+                # Send the prompt to Ollama
+                process.stdin.write(prompt)
+                process.stdin.close()  # Close stdin to signal end of input
+                
+                # 📡 Stream output character-by-character in real-time
+                # This ensures the client sees tokens as they're generated
+                for line in iter(process.stdout.readline, ''):
+                    if line:
+                        # Send each line as it arrives
+                        # Format as SSE (Server-Sent Events) for better handling
+                        yield f"data: {line}\n\n"
+                
+                # Wait for process to complete
+                process.wait()
+                
+                # Check for errors
+                if process.returncode != 0:
+                    stderr_output = process.stderr.read()
+                    yield f"data: [ERROR] Ollama failed: {stderr_output}\n\n"
+                
+            except Exception as e:
+                yield f"data: [ERROR] {str(e)}\n\n"
+        
+        # 🎯 Return streaming response with proper headers for SSE
+        return Response(
+            stream_with_context(generate()),
+            mimetype='text/event-stream',  # SSE mime type
+            headers={
+                'Cache-Control': 'no-cache',
+                'X-Accel-Buffering': 'no'  # Disable nginx buffering if behind proxy
+            }
         )
-        
-        stdout, stderr = process.communicate(input=prompt)
-        
-        if process.returncode != 0:
-            return jsonify({"error": f"Ollama execution failed: {stderr}"}), 500
-            
-        return jsonify({"summary": stdout})
         
     except Exception as e:
         return jsonify({"error": f"Internal Server Error: {str(e)}"}), 500

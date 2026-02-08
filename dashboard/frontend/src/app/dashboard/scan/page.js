@@ -3,6 +3,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import { db } from "../../../lib/firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import Script from 'next/script';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
@@ -85,6 +87,65 @@ export default function SecOpsTerminal() {
     const [aiMode, setAiMode] = useState('local'); // 'local' | 'openai'
     const [scanHash, setScanHash] = useState(null);
     const [isIntegrityVerified, setIsIntegrityVerified] = useState(false);
+
+
+    // 📝 MARKDOWN FORMATTING HELPER
+    // Automatically adds proper line breaks after headings for better readability
+    // Handles text that comes as one continuous line from AI
+    const formatMarkdown = (text) => {
+        if (!text) return text;
+
+        let formatted = text;
+
+        // CRITICAL: First, add line breaks BEFORE headings (so they're on their own line)
+        // This handles: "text# Heading" → "text\n# Heading"
+        formatted = formatted.replace(/([^\n])(#{1,6} )/g, '$1\n\n$2');
+
+        // Also handle: "text.# Heading" or "text!# Heading" 
+        formatted = formatted.replace(/([.!?])#/g, '$1\n\n#');
+
+        // Handle: "sometext## Heading" without space before #
+        formatted = formatted.replace(/([a-zA-Z0-9])(#{1,6})/g, '$1\n\n$2');
+
+        // Ensure proper spacing in heading syntax: "##Heading" → "## Heading"
+        formatted = formatted.replace(/(#{1,6})([^ \n])/g, '$1 $2');
+
+        // NOW add line breaks AFTER headings based on level
+        // More # = more line breaks (as user requested)
+
+        // H6 (######) - 6 blank lines
+        formatted = formatted.replace(/^(###### .+)$/gm, '$1\n\n\n\n\n\n');
+
+        // H5 (#####) - 5 blank lines
+        formatted = formatted.replace(/^(##### .+)$/gm, '$1\n\n\n\n\n');
+
+        // H4 (####) - 4 blank lines
+        formatted = formatted.replace(/^(#### .+)$/gm, '$1\n\n\n\n');
+
+        // H3 (###) - 3 blank lines
+        formatted = formatted.replace(/^(### .+)$/gm, '$1\n\n\n');
+
+        // H2 (##) - 2 blank lines
+        formatted = formatted.replace(/^(## .+)$/gm, '$1\n\n');
+
+        // H1 (#) - 1 blank line
+        formatted = formatted.replace(/^(# .+)$/gm, '$1\n');
+
+        // Fix list formatting: ensure space before lists
+        formatted = formatted.replace(/([^\n])\n([-*+] )/g, '$1\n\n$2');
+        formatted = formatted.replace(/([^\n])([-*+] )/g, '$1\n\n$2');
+
+        // Ensure space after lists before new text
+        formatted = formatted.replace(/([-*+] .+)([A-Z#])/g, '$1\n\n$2');
+
+        // Fix numbered lists
+        formatted = formatted.replace(/([^\n])(\d+\. )/g, '$1\n\n$2');
+
+        // Clean up: limit consecutive blank lines to max 6
+        formatted = formatted.replace(/\n{7,}/g, '\n\n\n\n\n\n');
+
+        return formatted;
+    };
 
     // We need a ref for the report container to capture it for PDF
     const reportRef = useRef(null);
@@ -299,17 +360,20 @@ export default function SecOpsTerminal() {
         }
     };
 
-    // AI Summarization
-    // AI Summarization
-    // AI Summarization
+    // 🤖 AI SUMMARIZATION WITH REAL-TIME STREAMING
+    // This function supports both OpenAI (standard JSON response) and Local Ollama (SSE streaming)
     const generateSummary = async () => {
         if (!globalLogData.current) return;
         setIsSummarizing(true);
-        setSummary("");
+        setSummary(""); // Clear previous summary
 
         try {
             let summaryText = "";
+
             if (aiMode === 'openai') {
+                // ══════════════════════════════════════════════════════════════
+                // OPENAI MODE: Standard JSON Response (No Streaming)
+                // ══════════════════════════════════════════════════════════════
                 const apiKey = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
                 if (!apiKey) throw new Error("OpenAI API Key not found in env");
 
@@ -341,9 +405,12 @@ export default function SecOpsTerminal() {
 
                 const data = await response.json();
                 summaryText = data.choices[0].message.content;
+                setSummary(summaryText); // Set all at once for OpenAI
 
             } else {
-                // Local Backend (Ollama)
+                // ══════════════════════════════════════════════════════════════
+                // LOCAL OLLAMA MODE: Real-time SSE Streaming 🔥
+                // ══════════════════════════════════════════════════════════════
                 const response = await fetch('http://localhost:5001/summarize', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -351,35 +418,73 @@ export default function SecOpsTerminal() {
                 });
 
                 if (!response.ok) {
-                    const errData = await response.json();
-                    throw new Error(errData.error || "Backend summarization failed");
+                    // Try to parse error as JSON
+                    const contentType = response.headers.get("content-type");
+                    if (contentType && contentType.includes("application/json")) {
+                        const errData = await response.json();
+                        throw new Error(errData.error || "Backend summarization failed");
+                    } else {
+                        throw new Error(`Backend error: ${response.status} ${response.statusText}`);
+                    }
                 }
 
-                const data = await response.json();
-                summaryText = data.summary;
+                // 📡 STREAMING HANDLER: Read SSE stream line by line
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = "";
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+
+                    // Decode chunk and add to buffer
+                    buffer += decoder.decode(value, { stream: true });
+
+                    // Process complete SSE messages (lines starting with "data: ")
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop() || ""; // Keep incomplete line in buffer
+
+                    for (const line of lines) {
+                        if (line.startsWith('data: ')) {
+                            const content = line.substring(6); // Remove "data: " prefix
+
+                            // Filter out error messages and append to summary
+                            if (!content.startsWith('[ERROR]')) {
+                                summaryText += content;
+                                setSummary(prev => prev + content); // ✨ Real-time update!
+                            } else {
+                                // Handle errors from Ollama
+                                console.error("Ollama error:", content);
+                                throw new Error(content);
+                            }
+                        }
+                    }
+                }
             }
 
-            setSummary(summaryText);
-
-            // Save Report to Firestore
-            try {
-                await addDoc(collection(db, "reports"), {
-                    name: `AI Security Summary - ${targetIp}`,
-                    scan: targetIp,
-                    date: serverTimestamp(), // Will be formatted on fetch
-                    type: "AI Analysis", // To distinguish types
-                    content: summaryText,
-                    mode: aiMode,
-                    score: "N/A" // Placeholder
-                });
-                console.log("Report saved to db");
-            } catch (e) {
-                console.error("Error saving report:", e);
+            // ══════════════════════════════════════════════════════════════
+            // SAVE TO FIRESTORE (After completion for both modes)
+            // ══════════════════════════════════════════════════════════════
+            if (summaryText.trim()) {
+                try {
+                    await addDoc(collection(db, "reports"), {
+                        name: `AI Security Summary - ${targetIp}`,
+                        scan: targetIp,
+                        date: serverTimestamp(),
+                        type: "AI Analysis",
+                        content: summaryText,
+                        mode: aiMode,
+                        score: "N/A"
+                    });
+                    console.log("✅ Report saved to Firestore");
+                } catch (e) {
+                    console.error("❌ Error saving report:", e);
+                }
             }
 
         } catch (error) {
             console.error("AI Summary failed:", error);
-            setSummary(`Analysis Failed: ${error.message}.`);
+            setSummary(`❌ Analysis Failed: ${error.message}`);
         } finally {
             setIsSummarizing(false);
         }
@@ -889,11 +994,142 @@ export default function SecOpsTerminal() {
                 }
 
                 .summary-content {
-                    white-space: pre-wrap;
                     line-height: 1.6;
-                    color: #ccc;
-                    font-size: 1rem;
-                    font-family: sans-serif; /* Readable font for summary */
+                    color: #00ff00; /* White -> Neon Green */
+                    font-size: 0.85rem;
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                    font-weight: normal;
+                }
+
+                /* 📝 MARKDOWN STYLING FOR AI SUMMARY */
+                .summary-content h1 {
+                    color: #00ff5eff; /* Green -> Neon Blue */
+                    font-size: 1.2em;
+                    font-weight: 900;
+                    margin: 20px 0 12px 0;
+                    padding-bottom: 8px;
+                    border-bottom: 1px solid #00ffff44; /* Green border -> Blue */
+                    text-transform: none;
+                    letter-spacing: 0.5px;
+                }
+
+                .summary-content h2 {
+                    color: #00ffff; /* Green -> Neon Blue */
+                    font-size: 1.05em;
+                    font-weight: 600;
+                    margin: 16px 0 10px 0;
+                    padding-left: 8px;
+                    border-left: 2px solid #00ffff; /* Green border -> Blue */
+                }
+
+                .summary-content h3 {
+                    color: #88ffff; /* Lighter Blue */
+                    font-size: 1em;
+                    font-weight: 500;
+                    margin: 12px 0 8px 0;
+                }
+
+                .summary-content strong {
+                    color: #ffaa00;
+                    font-weight: 600;
+                }
+
+                .summary-content em {
+                    color: #aaffff; /* Light Blue */
+                    font-style: italic;
+                }
+
+                .summary-content ul, .summary-content ol {
+                    margin: 10px 0;
+                    padding-left: 20px;
+                }
+
+                .summary-content li {
+                    margin: 6px 0;
+                    line-height: 1.6;
+                    color: #00ff00; /* White -> Neon Green */
+                    font-size: 0.85rem;
+                }
+
+                .summary-content ul li::marker {
+                    color: #00ffff; /* Green -> Neon Blue */
+                }
+
+                .summary-content ol li::marker {
+                    color: #00ffff; /* Green -> Neon Blue */
+                    font-weight: normal;
+                }
+
+                .summary-content p {
+                    margin: 10px 0;
+                    color: #00ff00; /* White -> Neon Green */
+                    font-size: 0.85rem;
+                    font-weight: normal;
+                }
+
+                .summary-content code {
+                    background: #000;
+                    color: #00ffff; /* Green -> Neon Blue */
+                    padding: 2px 5px;
+                    border-radius: 3px;
+                    font-family: 'Courier New', monospace;
+                    font-size: 0.8rem;
+                    border: 1px solid #33ffff; /* Blue Border */
+                }
+                
+                .summary-content pre {
+                    background: #000;
+                    border: 1px solid #33ffff; /* Blue Border */
+                    border-left: 2px solid #00ffff; /* Green -> Blue */
+                    padding: 12px;
+                    overflow-x: auto;
+                    border-radius: 4px;
+                    margin: 12px 0;
+                    font-size: 0.8rem;
+                }
+
+                .summary-content pre code {
+                    background: transparent;
+                    border: none;
+                    padding: 0;
+                    font-size: 0.8rem;
+                    color: #00ff00; /* Code content Green */
+                }
+                
+                .summary-content pre code span {
+                     color: #00ff00;
+                }
+                
+                /* Override: Ensure pre block text is green like terminal */
+                .summary-content pre {
+                    color: #00ff00;
+                }
+
+                .summary-content blockquote {
+                    border-left: 3px solid #ffaa00;
+                    padding-left: 12px;
+                    margin: 12px 0;
+                    color: #00ff00; /* White -> Green */
+                    font-style: italic;
+                    background: rgba(255, 170, 0, 0.05);
+                    padding: 8px 12px;
+                    font-size: 0.85rem;
+                }
+
+                .summary-content hr {
+                    border: none;
+                    border-top: 1px solid #00ffff; /* Blue divider */
+                    margin: 16px 0;
+                }
+
+                .summary-content a {
+                    color: #00ffff; /* Blue links */
+                    text-decoration: underline;
+                    font-size: 0.85rem;
+                }
+
+                .summary-content a:hover {
+                    color: #ffffff;
                 }
                 
                 .ai-loading {
@@ -1099,7 +1335,11 @@ export default function SecOpsTerminal() {
                                         <div className="report-card">
                                             <h3 className="card-title">AI Executive Summary</h3>
                                             {summary ? (
-                                                <div className="summary-content">{summary}</div>
+                                                <div className="summary-content">
+                                                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                                                        {formatMarkdown(summary)}
+                                                    </ReactMarkdown>
+                                                </div>
                                             ) : (
                                                 <div style={{ color: '#666', padding: '20px', textAlign: 'center', border: '1px dashed #333' }}>
                                                     {isSummarizing ?
